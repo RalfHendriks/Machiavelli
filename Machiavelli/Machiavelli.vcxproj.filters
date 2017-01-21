@@ -9,6 +9,51 @@
       <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
       <Extensions>h;hh;hpp;hxx;hm;inl;inc;xsd</Extensions>
     </Filter>
+    <Filter Include="Models">
+      <UniqueIdentifier>{595865eb-8e9b-4b5f-bb8a-ab8c3eeaae49}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Controllers">
+      <UniqueIdentifier>{70719119-d9de-4dfc-a622-1fc2a23e4f8b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Models\Cards">
+      <UniqueIdentifier>{12a82341-bf65-4565-b9e2-ae3e816a57d7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Models\Cards\Characters">
+      <UniqueIdentifier>{a8ef0493-cb08-410c-88be-eb467b401602}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Models\Cards\Buildings">
+      <UniqueIdentifier>{65083cf7-3a30-475b-b0ec-fa0f3ad1bd30}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Models\Cards\Types">
+      <UniqueIdentifier>{53a77d76-3ce5-4e3f-9ff3-8973efce9c2a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Controllers\Header Files">
+      <UniqueIdentifier>{5e837e6c-5f98-4605-afee-f8397bf01f9c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Controllers\Source Files">
+      <UniqueIdentifier>{acb92226-f1b1-48c1-9346-0854f614a142}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Factory">
+      <UniqueIdentifier>{b6a3e3c4-3bee-4763-b712-19ca4499440e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Factory\Header Files">
+      <UniqueIdentifier>{b30c9e05-f1f6-44a6-9c82-eea82a106d8f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Factory\Source Files">
+      <UniqueIdentifier>{4ed1a669-a8d0-4322-b153-d4a8760af725}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Models\Cards\Buildings\Source Files">
+      <UniqueIdentifier>{730e1195-ab26-4788-a893-53d9f398a93a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Models\Cards\Buildings\Header Files">
+      <UniqueIdentifier>{0fd1f6c3-9eeb-4ab7-9c53-22af550b0d6d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Models\Cards\Characters\Source Files">
+      <UniqueIdentifier>{0fae75bf-ee05-4f21-bc77-fd8de71919ff}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Models\Cards\Characters\Header Files">
+      <UniqueIdentifier>{3a072767-37d7-431a-a79b-5a249955c4d9}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="CircularBuffer.h">
@@ -32,12 +77,21 @@
     <ClInclude Include="throw.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="CardTypes.h">
+      <Filter>Models\Cards\Types</Filter>
+    </ClInclude>
+    <ClInclude Include="GameController.h">
+      <Filter>Controllers\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="CardFactory.h">
+      <Filter>Factory\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Building.h">
+      <Filter>Models\Cards\Buildings\Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Player.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Socket.cpp">
@@ -45,6 +99,18 @@
     </ClCompile>
     <ClCompile Include="throw.cpp">
       <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="GameController.cpp">
+      <Filter>Controllers\Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Player.cpp">
+      <Filter>Models</Filter>
+    </ClCompile>
+    <ClCompile Include="CardFactory.cpp">
+      <Filter>Factory\Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Building.cpp">
+      <Filter>Models\Cards\Buildings\Source Files</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

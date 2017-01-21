@@ -20,14 +20,16 @@ using namespace std;
 #include "ClientCommand.h"
 #include "Player.h"
 #include "ClientInfo.h"
+#include "GameController.h"
+
 
 namespace machiavelli {
     const int tcp_port {1080};
-    const string prompt {"machiavelli> "};
+    const string prompt {"> "};
 }
 
 static bool running = true;
-
+std::shared_ptr<GameController> _gameController;
 static Sync_queue<ClientCommand> queue;
 
 void consume_command() // runs in its own thread
@@ -118,6 +120,9 @@ void handle_client(Socket client) // this function runs in a separate thread
 
 int main(int argc, const char * argv[])
 {
+
+	_gameController = std::make_shared<GameController>(GameController());
+
     // start command consumer thread
     vector<thread> all_threads;
     all_threads.emplace_back(consume_command);
