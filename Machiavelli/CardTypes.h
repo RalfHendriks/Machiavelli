@@ -26,11 +26,11 @@ inline const char* ColorToString(CardColor c)
 	switch (c)
 	{
 	default:
-	case CardColor::White:		return "Wit";
-	case CardColor::Yellow:		return "Geel";
-	case CardColor::Green:		return "Groen";
-	case CardColor::Blue:		return "Blauw";
-	case CardColor::Red:		return "Rood";
-	case CardColor::Lila:		return "Lila";
+	case CardColor::White:		return "wit";
+	case CardColor::Yellow:		return "geel";
+	case CardColor::Green:		return "groen";
+	case CardColor::Blue:		return "blauw";
+	case CardColor::Red:		return "rood";
+	case CardColor::Lila:		return "lila";
 	}
 }

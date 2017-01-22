@@ -7,6 +7,8 @@
 #include <fstream>
 #include <iostream>
 #include <sstream>
+#include <algorithm>
+#include <string> 
 #include "Building.h"
 #include "Character.h"
 
@@ -24,6 +26,7 @@ private:
 	std::vector<std::shared_ptr<BuildingCard>> _buildingCards;
 	std::vector<std::shared_ptr<CharacterCard>> _characterCards;
 	std::map<std::string, CharacterType> _characterIdentifiers;
+	std::map<std::string, CardColor> _colorIdentifiers;
 
 	std::shared_ptr<CharacterCard>  CreateCharacter(std::string type, int id);
 	std::shared_ptr<BuildingCard>  CreateBuilding(std::string name, int goldCost, CardColor color, std::string description);

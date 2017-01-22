@@ -1,11 +1,11 @@
 #pragma once
 #include "Character.h"
 
-class ConstructionMaster : public CharacterCard
+class King : public CharacterCard
 {
 public:
-	ConstructionMaster(int ID, CharacterType type);
-	~ConstructionMaster();
+	King(int ID, CharacterType type);
+	~King();
 
 	void Execute() override;
 private:

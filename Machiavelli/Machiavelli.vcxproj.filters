@@ -95,6 +95,27 @@
     <ClInclude Include="Thief.h">
       <Filter>Models\Cards\Characters\Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="King.h">
+      <Filter>Models\Cards\Characters\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Murderer.h">
+      <Filter>Models\Cards\Characters\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Mage.h">
+      <Filter>Models\Cards\Characters\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Preacher.h">
+      <Filter>Models\Cards\Characters\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Merchant.h">
+      <Filter>Models\Cards\Characters\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Condottiere.h">
+      <Filter>Models\Cards\Characters\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="ConstructionMaster.h">
+      <Filter>Models\Cards\Characters\Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -122,6 +143,27 @@
       <Filter>Models\Cards\Characters\Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Thief.cpp">
+      <Filter>Models\Cards\Characters\Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Preacher.cpp">
+      <Filter>Models\Cards\Characters\Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Murderer.cpp">
+      <Filter>Models\Cards\Characters\Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Merchant.cpp">
+      <Filter>Models\Cards\Characters\Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Mage.cpp">
+      <Filter>Models\Cards\Characters\Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="King.cpp">
+      <Filter>Models\Cards\Characters\Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Condottiere.cpp">
+      <Filter>Models\Cards\Characters\Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="ConstructionMaster.cpp">
       <Filter>Models\Cards\Characters\Source Files</Filter>
     </ClCompile>
   </ItemGroup>
