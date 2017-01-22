@@ -1,21 +1,21 @@
 #pragma once
 #include <string>
 
-enum class CardType { building, character };
-enum class CardColor { white, yellow, green, blue, red, lila };
-enum class CharacterType { NONE, Moordenaar, Dief, Magiër, Koning, Prediker, Koopman, Bouwmeester, Condottiere };
+enum class CardType { Building, Character };
+enum class CardColor { White, Yellow, Green, Blue, Red, Lila };
+enum class CharacterType { NONE, Murderer, Thief, Mage, King, Preacher, Merchant, ContrustionMaster, Condottiere };
 
 inline const char* CharacterTypeToString(CharacterType c)
 {
 	switch (c)
 	{
-	case CharacterType::Moordenaar:		return "Murder";
-	case CharacterType::Dief:			return "Thief";
-	case CharacterType::Magiër:			return "Magier";
-	case CharacterType::Koning:			return "King";
-	case CharacterType::Prediker:		return "Prediker";
-	case CharacterType::Koopman:		return "Merchant";
-	case CharacterType::Bouwmeester:	return "Building master";
+	case CharacterType::Murderer:		return "Moordenaar";
+	case CharacterType::Thief:			return "Dief";
+	case CharacterType::Mage:			return "Magiër";
+	case CharacterType::King:			return "Koning";
+	case CharacterType::Preacher:		return "Prediker";
+	case CharacterType::Merchant:		return "Koopman";
+	case CharacterType::ContrustionMaster:	return "Bouwmeester";
 	case CharacterType::Condottiere:	return "Condottiere";
 	default: return "NONE";
 	}
@@ -25,12 +25,12 @@ inline const char* ColorToString(CardColor c)
 {
 	switch (c)
 	{
-	case CardColor::white:		return "White";
-	case CardColor::yellow:		return "Yellow";
-	case CardColor::green:		return "Green";
-	case CardColor::blue:		return "Blue";
-	case CardColor::red:		return "Red";
-	case CardColor::lila:		return "Lila";
-	default:					return "White";
+	default:
+	case CardColor::White:		return "Wit";
+	case CardColor::Yellow:		return "Geel";
+	case CardColor::Green:		return "Groen";
+	case CardColor::Blue:		return "Blauw";
+	case CardColor::Red:		return "Rood";
+	case CardColor::Lila:		return "Lila";
 	}
 }

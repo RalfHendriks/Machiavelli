@@ -149,7 +149,7 @@ int main(int argc, const char * argv[])
     for (auto &t : all_threads) {
         t.join();
     }
-
+	_CrtDumpMemoryLeaks();
     return 0;
 }
 

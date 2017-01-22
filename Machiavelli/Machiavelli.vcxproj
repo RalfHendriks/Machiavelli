@@ -144,6 +144,7 @@
   <ItemGroup>
     <ClInclude Include="Building.h" />
     <ClInclude Include="CardTypes.h" />
+    <ClInclude Include="Character.h" />
     <ClInclude Include="CircularBuffer.h" />
     <ClInclude Include="ClientCommand.h" />
     <ClInclude Include="ClientInfo.h" />
@@ -152,15 +153,18 @@
     <ClInclude Include="Player.h" />
     <ClInclude Include="Socket.h" />
     <ClInclude Include="Sync_queue.h" />
+    <ClInclude Include="Thief.h" />
     <ClInclude Include="throw.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Building.cpp" />
     <ClCompile Include="CardFactory.cpp" />
+    <ClCompile Include="Character.cpp" />
     <ClCompile Include="GameController.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Player.cpp" />
     <ClCompile Include="Socket.cpp" />
+    <ClCompile Include="Thief.cpp" />
     <ClCompile Include="throw.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

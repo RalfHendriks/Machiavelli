@@ -65,9 +65,6 @@
     <ClInclude Include="ClientInfo.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Player.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="Socket.h">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -88,6 +85,15 @@
     </ClInclude>
     <ClInclude Include="Building.h">
       <Filter>Models\Cards\Buildings\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Player.h">
+      <Filter>Models</Filter>
+    </ClInclude>
+    <ClInclude Include="Character.h">
+      <Filter>Models\Cards\Characters\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Thief.h">
+      <Filter>Models\Cards\Characters\Header Files</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -111,6 +117,12 @@
     </ClCompile>
     <ClCompile Include="Building.cpp">
       <Filter>Models\Cards\Buildings\Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Character.cpp">
+      <Filter>Models\Cards\Characters\Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Thief.cpp">
+      <Filter>Models\Cards\Characters\Source Files</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>
