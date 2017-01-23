@@ -1,10 +1,25 @@
-//
-//  Player.cpp
-//  socketexample
-//
-//  Created by Bob Polis on 23-11-15.
-//  Copyright © 2015 Avans Hogeschool, 's-Hertogenbosch. All rights reserved.
-//
-
 #include "Player.h"
-using namespace std;
+
+Player::Player(const std::string name) : _name{name}
+{
+}
+
+const std::string Player::GetName() const
+{
+	return _name;
+}
+
+void Player::AddGold(const int amount)
+{
+	_current_gold = _current_gold + amount;
+}
+
+void Player::RemoveGold(const int amount)
+{
+	_current_gold = _current_gold - amount;
+}
+
+void Player::SetIsKing(const bool isKing)
+{
+	_isKing = isKing;
+}

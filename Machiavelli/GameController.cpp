@@ -3,11 +3,7 @@
 
 GameController::GameController()
 {
-	CardFactory* f = new CardFactory();
-}
-
-GameController::~GameController()
-{
+	_factory = std::make_shared<CardFactory>(CardFactory());
 }
 
 void GameController::StartGame()
