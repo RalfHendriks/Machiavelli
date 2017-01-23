@@ -1,6 +1,6 @@
 #include "King.h"
 
-King::King(int ID, CharacterType type) : CharacterCard(ID, type)
+King::King(const int ID, const std::string name, const CharacterType type) : CharacterCard(ID, name, type)
 {
 }
 

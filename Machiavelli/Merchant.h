@@ -4,7 +4,7 @@
 class Merchant : public CharacterCard
 {
 public:
-	Merchant(int ID, CharacterType type);
+	Merchant(const int id, const std::string name, const CharacterType type);
 	~Merchant();
 
 	void Execute() override;

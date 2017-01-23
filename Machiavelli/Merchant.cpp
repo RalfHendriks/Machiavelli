@@ -1,7 +1,8 @@
 #include "Merchant.h"
 
-Merchant::Merchant(int ID, CharacterType type) : CharacterCard(ID, type)
+Merchant::Merchant(const int ID, const std::string name, const CharacterType type) : CharacterCard(ID, name, type)
 {
+
 }
 
 Merchant::~Merchant()

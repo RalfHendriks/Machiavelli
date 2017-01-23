@@ -4,7 +4,7 @@
 class ConstructionMaster : public CharacterCard
 {
 public:
-	ConstructionMaster(int ID, CharacterType type);
+	ConstructionMaster(const int id, const std::string name, const CharacterType type);
 	~ConstructionMaster();
 
 	void Execute() override;

@@ -4,7 +4,7 @@
 class Condottiere : public CharacterCard
 {
 public:
-	Condottiere(int ID, CharacterType type);
+	Condottiere(const int id, const std::string name, const CharacterType type);
 	~Condottiere();
 
 	void Execute() override;

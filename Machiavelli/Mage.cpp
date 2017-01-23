@@ -1,6 +1,6 @@
 #include "Mage.h"
 
-Mage::Mage(int ID, CharacterType type) : CharacterCard(ID, type)
+Mage::Mage(const int ID, const std::string name, const CharacterType type) : CharacterCard(ID, name, type)
 {
 }
 
