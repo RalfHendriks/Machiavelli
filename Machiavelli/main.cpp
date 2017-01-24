@@ -43,7 +43,6 @@ void consume_command() // runs in its own thread
 				auto &player = clientInfo->get_player();
 				try {
 					game.HandlePlayerInput(player, command.GetCommand());
-					client.write(machiavelli::prompt);
 				}
 				catch (const exception& ex) {
 					cerr << "*** exception in consumer thread for player " << player->GetName() << ": " << ex.what() << '\n';

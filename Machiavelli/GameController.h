@@ -31,7 +31,9 @@ private:
 	bool _skip_character_select;
 	GameState _current_state;
 	void StartCharacterSelect();
+	int CharacterCardSelect();
 	void ResetCards();
+	void PlayGame();
 	void OutRemainingCharacterCards();
 	bool CheckForAllPlayersReady();
 	void RemoveCharacterCard(const int index);
