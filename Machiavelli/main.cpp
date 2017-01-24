@@ -43,6 +43,7 @@ void consume_command() // runs in its own thread
 				auto &player = clientInfo->get_player();
 				try {
 					game->HandlePlayerInput(player, command.GetCommand());
+					client.write(machiavelli::prompt);
 				}
 				catch (const exception& ex) {
 					cerr << "*** exception in consumer thread for player " << player->GetName() << ": " << ex.what() << '\n';
@@ -74,7 +75,7 @@ std::shared_ptr<ClientInfo> init_client_session(Socket client) {
 			name = input;
 		});
 	}
-	return make_shared<ClientInfo>(move(client), make_shared<Player>(name));
+	return make_shared<ClientInfo>(move(client),name);
 }
 
 void handle_client(Socket client) // this function runs in a separate thread
@@ -97,7 +98,7 @@ void handle_client(Socket client) // this function runs in a separate thread
 					// read first line of request
 					std::string cmd;
 					if (socket.readline([&cmd](std::string input) { cmd = input; })) {
-						cerr << '[' << socket.get_dotted_ip() << " (" << socket.get_socket() << ") " << player->GetName() << "] " << cmd << "\r\n";
+						//cerr << '[' << socket.get_dotted_ip() << " (" << socket.get_socket() << ") " << player->GetName() << "] " << cmd << "\r\n";
 
 						if (cmd == "quit") {
 							socket.write("Bye!\r\n");
