@@ -4,46 +4,59 @@
 GameController::GameController()
 {
 	_factory = std::make_shared<CardFactory>(CardFactory());
-	_gameStarted = false;
-	_skipCharacterSelect = false;
-	_currentState = GameState::WaitingForPlayers;
+	_game_started = false;
+	_skip_character_select = false;
+	_current_state = GameState::WaitingForPlayers;
 }
 
 void GameController::StartGame()
 {
-	_gameStarted;
+	_game_started = true;
+	while (_game_started)
+	{
+		_current_player_turn = _players[0];
+		_current_player_turn->SetIsKing(true);
 
+		ResetCards();
+
+	}
+	StartCharacterSelect();
 }
 
-void GameController::ResetGame()
+void GameController::ResetCards()
 {
-	_characterCards = _factory->GetCharacterCards();
-	_buildingCards = _factory->GetBuildingCards();
+	_character_cards = _factory->GetCharacterCards();
+	_building_cards = _factory->GetBuildingCards();
 }
 
 void GameController::AddPlayer(std::shared_ptr<Player> player)
 {
-	_currentPlayers.push_back(player);
+	_players.push_back(player);
 	std::cout << "New player connected: " << player->GetName() << "\r\n";
-	std::cout << "Current players in lobby: " << _currentPlayers.size() << "\r\n";
-	if (_currentPlayers.size() == 2) {
-		_currentPlayers[0]->SendMessageToCLient("PLayer " + _currentPlayers[1]->GetName() + " entered the game!");
-		_currentPlayers[1]->SendMessageToCLient("PLayer " + _currentPlayers[0]->GetName() + " entered the game!");
+	std::cout << "Current players in lobby: " << _players.size() << "\r\n";
+	if (_players.size() == 2) {
+		_players[0]->SendMessageToCLient("Player " + _players[1]->GetName() + " entered the game!\r\n");
+		_players[1]->SendMessageToCLient("Player " + _players[0]->GetName() + " entered the game!\r\n");
 		StartGame();
 	}
 }
 
 void GameController::RemovePlayer(std::shared_ptr<Player> player)
 {
-	_currentPlayers.erase(std::remove(_currentPlayers.begin(), _currentPlayers.end(), player), _currentPlayers.end());
+	_players.erase(std::remove(_players.begin(), _players.end(), player), _players.end());
 }
 
 void GameController::HandlePlayerInput(std::shared_ptr<Player> player, std::string playerInput)
 {
 	std::cout << player->GetName() << ": " << playerInput << "\r\n";
-	if (playerInput == "skipcharacterselect") _skipCharacterSelect = true;
+	if (playerInput == "skipcharacterselect") _skip_character_select = true;
 
 	player->SetLastPLayerInput(playerInput);
+}
+
+void GameController::EndTurn()
+{
+	_current_player_turn = _current_player_turn == _players[0] ? _players[1] : _players[0];
 }
 
 void GameController::StartCharacterSelect()
