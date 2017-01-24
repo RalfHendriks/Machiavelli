@@ -92,7 +92,7 @@ void handle_client(Socket client) // this function runs in a separate thread
 
 			game->AddPlayer(player);
 			socket << "Welcome, " << player->GetName() << ", have fun playing our game!\r\n" << machiavelli::prompt;
-
+			game->HandlePlayerInput(player, "join");
 			while (running) { // game loop
 				try {
 					// read first line of request
@@ -101,6 +101,8 @@ void handle_client(Socket client) // this function runs in a separate thread
 						//cerr << '[' << socket.get_dotted_ip() << " (" << socket.get_socket() << ") " << player->GetName() << "] " << cmd << "\r\n";
 
 						if (cmd == "quit") {
+							game->RemovePlayer(player);
+							game->HandlePlayerInput(player, cmd);
 							socket.write("Bye!\r\n");
 							break; // out of game loop, will end this thread and close connection
 						}

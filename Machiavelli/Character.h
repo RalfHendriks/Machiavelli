@@ -16,7 +16,6 @@ public:
 	const int GetID() const;
 	const std::string GetDescription() const;
 	const CharacterType GetType() const;
-
 	virtual void Execute(std::shared_ptr<GameController> game_controller) = 0; // Make abstract class
 
 protected:

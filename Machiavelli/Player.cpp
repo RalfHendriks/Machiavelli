@@ -39,6 +39,11 @@ void Player::AddGold(const int amount)
 	_current_gold = _current_gold + amount;
 }
 
+void Player::AddCharacterCard(std::shared_ptr<CharacterCard> card)
+{
+	_character_cards.push_back(card);
+}
+
 void Player::RemoveGold(const int amount)
 {
 	_current_gold = _current_gold - amount;
@@ -47,6 +52,11 @@ void Player::RemoveGold(const int amount)
 void Player::SetIsKing(const bool isKing)
 {
 	_is_king = isKing;
+}
+
+void Player::SetReady(const bool status)
+{
+	_ready = status;
 }
 
 void Player::SendMessageToCLient(std::string message)

@@ -16,12 +16,12 @@ void Murderer::Execute(std::shared_ptr<GameController> game_controller)
 	current_player->SendMessageToCLient("You executed the Murderer card. \n");
 	current_player->SendMessageToCLient("Please select the character you want to murder:");
 
-	std::string compare_input = current_player->GetLastInput();
+	std::string compare_input = current_player->GetPlayerInput();
 	bool selected = false;
 	while (!selected) {
 
-		if (current_player->GetLastInput() != compare_input) {
-			compare_input = current_player->GetLastInput(); // Set new input
+		if (current_player->GetPlayerInput() != compare_input) {
+			compare_input = current_player->GetPlayerInput(); // Set new input
 
 			current_player->SendMessageToCLient("You have murdered " + compare_input);
 		}
