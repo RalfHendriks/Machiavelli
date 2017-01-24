@@ -16,14 +16,17 @@ GameController::GameController()
 void GameController::StartGame()
 {
 	_game_started = true;
-	while (_game_started)
-	{
+	//while (_game_started)
+	//{
 		_current_player_turn = _players[0];
 		_current_player_turn->SetIsKing(true);
 		ResetCards();
-		_game_started = false;
-	}
-	StartCharacterSelect();
+	//	_game_started = false;
+	//}
+
+	_character_cards[0]->Execute(*this);
+
+	//StartCharacterSelect();
 }
 
 void GameController::ResetCards()
