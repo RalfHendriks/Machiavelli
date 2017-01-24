@@ -12,4 +12,7 @@ Murderer::~Murderer()
 void Murderer::Execute(GameController & game_controller)
 {
 	//bool test = game_controller.HasGameStarted();
+
+	
+
 }
