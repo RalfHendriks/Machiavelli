@@ -18,17 +18,18 @@ public:
 	void AddPlayer(std::shared_ptr<Player> player);
 	void RemovePlayer(std::shared_ptr<Player> player);
 	void HandlePlayerInput(std::shared_ptr<Player> player, std::string playerInput);
-	const bool HasGameStarted() const { return _gameStarted; }
-	const GameState GetCurrentState() const { return _currentState; }
+	void EndTurn();
+	const bool HasGameStarted() const { return _game_started; }
+	const GameState GetCurrentState() const { return _current_state; }
 private:
-	std::shared_ptr<Player> _currentPlayerTurn;
-	std::vector<std::shared_ptr<Player>> _currentPlayers;
+	std::shared_ptr<Player> _current_player_turn;
+	std::vector<std::shared_ptr<Player>> _players;
 	std::shared_ptr<CardFactory> _factory;
-	std::vector<std::shared_ptr<BuildingCard>> _buildingCards;
-	std::vector<std::shared_ptr<CharacterCard>> _characterCards;
-	bool _gameStarted;
-	bool _skipCharacterSelect;
-	GameState _currentState;
+	std::vector<std::shared_ptr<BuildingCard>> _building_cards;
+	std::vector<std::shared_ptr<CharacterCard>> _character_cards;
+	bool _game_started;
+	bool _skip_character_select;
+	GameState _current_state;
 	void StartCharacterSelect();
-	void ResetGame();
+	void ResetCards();
 };
