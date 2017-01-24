@@ -30,7 +30,7 @@ namespace machiavelli {
 }
 
 static bool running = true;
-std::shared_ptr<GameController> _gameController;
+std::shared_ptr<GameController> game;
 static Sync_queue<ClientCommand> queue;
 
 void consume_command() // runs in its own thread
@@ -42,8 +42,7 @@ void consume_command() // runs in its own thread
 				auto &client = clientInfo->get_socket();
 				auto &player = clientInfo->get_player();
 				try {
-					// TODO handle command here
-					client << player.GetName() << ", you wrote: '" << command.get_cmd() << "', but I'll ignore that for now.\r\n" << machiavelli::prompt;
+					game->HandlePlayerInput(player, command.GetCommand());
 				}
 				catch (const exception& ex) {
 					cerr << "*** exception in consumer thread for player " << player.GetName() << ": " << ex.what() << '\n';
@@ -66,7 +65,6 @@ void consume_command() // runs in its own thread
 }
 
 std::shared_ptr<ClientInfo> init_client_session(Socket client) {
-	client.write("Welcome to Server 1.0! To quit, type 'quit'.\r\n");
 	client.write("What's your name?\r\n");
 	client.write(machiavelli::prompt);
 	string name;
@@ -82,39 +80,46 @@ std::shared_ptr<ClientInfo> init_client_session(Socket client) {
 void handle_client(Socket client) // this function runs in a separate thread
 {
 	try {
-		auto client_info = init_client_session(move(client));
-		auto &socket = client_info->get_socket();
-		auto &player = client_info->get_player();
-		socket << "Welcome, " << player.GetName() << ", have fun playing our game!\r\n" << machiavelli::prompt;
+		client.write("Welcome to our Machiavelli Game server!\r\n");
+		if (game->HasGameStarted()) {
+			client.write("Game already in progress, please try again later.\r\n");
+		}
+		else {
+			auto client_info = init_client_session(move(client));
+			auto &socket = client_info->get_socket();
+			auto &player = client_info->get_player();
 
-		while (running) { // game loop
-			try {
-				// read first line of request
-				std::string cmd;
-				if (socket.readline([&cmd](std::string input) { cmd = input; })) {
-					cerr << '[' << socket.get_dotted_ip() << " (" << socket.get_socket() << ") " << player.GetName() << "] " << cmd << "\r\n";
+			game->AddPlayer(std::make_shared<Player>(player));
+			socket << "Welcome, " << player.GetName() << ", have fun playing our game!\r\n" << machiavelli::prompt;
 
-					if (cmd == "quit") {
-						socket.write("Bye!\r\n");
-						break; // out of game loop, will end this thread and close connection
-					}
-					else if (cmd == "quit_server") {
-						running = false;
-					}
+			while (running) { // game loop
+				try {
+					// read first line of request
+					std::string cmd;
+					if (socket.readline([&cmd](std::string input) { cmd = input; })) {
+						cerr << '[' << socket.get_dotted_ip() << " (" << socket.get_socket() << ") " << player.GetName() << "] " << cmd << "\r\n";
 
-					ClientCommand command{ cmd, client_info };
-					queue.put(command);
-				};
+						if (cmd == "quit") {
+							socket.write("Bye!\r\n");
+							break; // out of game loop, will end this thread and close connection
+						}
+						else if (cmd == "quit_server") {
+							running = false;
+						}
 
-			}
-			catch (const exception& ex) {
-				socket << "ERROR: " << ex.what() << "\r\n";
-			}
-			catch (...) {
-				socket.write("ERROR: something went wrong during handling of your request. Sorry!\r\n");
+						ClientCommand command{ cmd, client_info };
+						queue.put(command);
+					};
+
+				}
+				catch (const exception& ex) {
+					socket << "ERROR: " << ex.what() << "\r\n";
+				}
+				catch (...) {
+					socket.write("ERROR: something went wrong during handling of your request. Sorry!\r\n");
+				}
 			}
 		}
-		// close weg
 	}
 	catch (std::exception &ex) {
 		cerr << "handle_client " << ex.what() << "\n";
@@ -134,11 +139,11 @@ void InitSocketLoop()
 	ServerSocket server{ machiavelli::tcp_port };
 
 	try {
-		cerr << "server listening" << '\n';
+		cerr << "Server started waiting for connections" << '\n';
 		while (running) {
 			// wait for connection from client; will create new socket
 			server.accept([&all_threads](Socket client) {
-				std::cerr << "Connection accepted from " << client.get_dotted_ip() << "\n";
+				//std::cerr << "Connection accepted from " << client.get_dotted_ip() << "\n";
 				all_threads.emplace_back(handle_client, move(client));
 			});
 			this_thread::sleep_for(chrono::milliseconds(100));
@@ -159,7 +164,7 @@ void InitSocketLoop()
 int main(int argc, const char * argv[])
 {
 
-	//_gameController = std::make_shared<GameController>(GameController());
+	game = std::make_shared<GameController>(GameController());
 	InitSocketLoop();
 
 	//clear memory from gamecontroller
