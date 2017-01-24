@@ -22,15 +22,20 @@ public:
 	const std::vector<std::shared_ptr<BuildingCard>> GetPlayedBuildingCards() const;
 
 	void AddGold(const int amount);
+	void AddCharacterCard(std::shared_ptr<CharacterCard> card);
 	void RemoveGold(const int amount);
 	void SetIsKing(const bool isKing);
+	void SetReady(const bool status);
 	void SendMessageToCLient(const std::string message);
 	void SetLastPLayerInput(const std::string input) { _lastInput = input; }
+	std::string GetPlayerInput() { return _lastInput; }
+	bool IsReady() { return _ready; }
 private:
     const std::string _name;
 	std::string _lastInput;
 	int _current_gold;
 	bool _is_king;
+	bool _ready;
 	Socket& _socket;
 	std::vector<std::shared_ptr<CharacterCard>> _character_cards;
 	std::vector<std::shared_ptr<BuildingCard>> _building_cards;

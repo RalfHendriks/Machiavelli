@@ -32,4 +32,7 @@ private:
 	GameState _current_state;
 	void StartCharacterSelect();
 	void ResetCards();
+	void OutRemainingCharacterCards();
+	bool CheckForAllPlayersReady();
+	void RemoveCharacterCard(const int index);
 };
