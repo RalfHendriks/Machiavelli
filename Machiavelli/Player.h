@@ -12,9 +12,13 @@ class Player {
 public:
 	Player(const std::string name);
 
-	int GetGold() { return _current_gold; }
-
 	const std::string GetName() const;
+	const int GetGold() const;
+	const bool IsKing() const;
+
+	const std::vector<std::shared_ptr<CharacterCard>> GetCharacterCards() const;
+	const std::vector<std::shared_ptr<BuildingCard>> GetBuildingCards() const;
+	const std::vector<std::shared_ptr<BuildingCard>> GetPlayedBuildingCards() const;
 
 	void AddGold(const int amount);
 	void RemoveGold(const int amount);
@@ -23,7 +27,7 @@ public:
 private:
     const std::string _name;
 	int _current_gold;
-	bool _isKing;
+	bool _is_king;
 
 	std::vector<std::shared_ptr<CharacterCard>> _character_cards;
 	std::vector<std::shared_ptr<BuildingCard>> _building_cards;

@@ -1,6 +1,6 @@
 #include "Thief.h"
 
-Thief::Thief(int ID, CharacterType type) : CharacterCard(ID, type)
+Thief::Thief(const int ID, const std::string name, const CharacterType type) : CharacterCard(ID, name, type)
 {
 
 }

@@ -4,7 +4,7 @@
 class Preacher : public CharacterCard
 {
 public:
-	Preacher(int ID, CharacterType type);
+	Preacher(const int id, const std::string name, const CharacterType type);
 	~Preacher();
 
 	void Execute() override;

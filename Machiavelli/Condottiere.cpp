@@ -1,6 +1,6 @@
 #include "Condottiere.h"
 
-Condottiere::Condottiere(int ID, CharacterType type) : CharacterCard(ID, type)
+Condottiere::Condottiere(const int ID, const std::string name, const CharacterType type) : CharacterCard(ID, name, type)
 {
 }
 

@@ -1,6 +1,6 @@
 #include "Murderer.h"
 
-Murderer::Murderer(int ID, CharacterType type) : CharacterCard(ID, type)
+Murderer::Murderer(const int ID, const std::string name, const CharacterType type) : CharacterCard(ID, name, type)
 {
 }
 

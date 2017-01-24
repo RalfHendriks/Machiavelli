@@ -4,7 +4,7 @@
 class King : public CharacterCard
 {
 public:
-	King(int ID, CharacterType type);
+	King(const int id, const std::string name, const CharacterType type);
 	~King();
 
 	void Execute() override;

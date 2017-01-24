@@ -1,6 +1,6 @@
 #include "Preacher.h"
 
-Preacher::Preacher(int ID, CharacterType type) : CharacterCard(ID, type)
+Preacher::Preacher(const int ID, const std::string name, const CharacterType type) : CharacterCard(ID, name, type)
 {
 }
 
