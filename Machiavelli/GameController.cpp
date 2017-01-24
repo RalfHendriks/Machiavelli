@@ -125,14 +125,21 @@ void GameController::HandlePlayerInput(std::shared_ptr<Player> player, std::stri
 
 void GameController::EndTurn()
 {
+	_current_player_turn->SendMessageToCLient("Your turn has ended, switching turns! \r\n");
 	_current_player_turn = _current_player_turn == _players[0] ? _players[1] : _players[0];
 	_current_player_turn->SendMessageToCLient("Opponents turn has ended it's your turn! \r\n");
 }
 
 void GameController::StartCharacterSelect()
 {
+	rand();
 	if (!_skip_character_select) {
-		RemoveCharacterCard(rand() % _character_cards.size());
+		int r = 3;
+		while (r == 3)
+		{
+			r = rand() % _character_cards.size();
+		}
+		RemoveCharacterCard(r);
 		while (_character_cards.size() > 0)
 		{
 			OutRemainingCharacterCards();
@@ -140,10 +147,13 @@ void GameController::StartCharacterSelect()
 			int cardIndex = CharacterCardSelect();
 			_current_player_turn->AddCharacterCard(_character_cards[cardIndex]);
 			RemoveCharacterCard(cardIndex);
-			OutRemainingCharacterCards();
-			_current_player_turn->SendMessageToCLient("Select a character card that will be removed!\r\n> ");
-			cardIndex = CharacterCardSelect();
-			RemoveCharacterCard(cardIndex);
+
+			if (_character_cards.size() != 6) {
+				OutRemainingCharacterCards();
+				_current_player_turn->SendMessageToCLient("Select a character card that will be removed!\r\n> ");
+				cardIndex = CharacterCardSelect();
+				RemoveCharacterCard(cardIndex);
+			}
 			EndTurn();
 		}
 	}
@@ -169,9 +179,14 @@ int GameController::CharacterCardSelect()
 			input = _current_player_turn->GetPlayerInput();
 			try
 			{
-				index = std::stoi(input) - 1;
-				auto c = _character_cards[index];
-				validInput = true;
+				index = std::stoi(input) + 1;
+				if (index <= _character_cards.size())
+				{
+					auto c = _character_cards[index];
+					validInput = true;
+				}
+				else
+					_current_player_turn->SendMessageToCLient("Invalid selection try again!\r\n> ");
 			}
 			catch (const std::exception& e)
 			{
