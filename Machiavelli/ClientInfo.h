@@ -18,8 +18,7 @@ class ClientInfo {
     Socket _socket;
     std::shared_ptr<Player> _player;
 public:
-    ClientInfo(Socket socket, std::shared_ptr<Player> player)
-        : _socket{std::move(socket)}, _player{std::move(player)} {}
+	ClientInfo(Socket socket, std::string name) : _socket{ std::move(socket) }, _player{std::make_shared<Player>(name,_socket)} {}
     Socket& get_socket() { return _socket; }
     const Socket& get_socket() const { return _socket; }
 	std::shared_ptr<Player> get_player() { return _player; }
