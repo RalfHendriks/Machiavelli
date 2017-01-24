@@ -18,15 +18,14 @@ class ClientInfo;
 
 class ClientCommand {
 public:
-    ClientCommand(const std::string& command_text, std::weak_ptr<ClientInfo> client_info)
-    : cmd{command_text}, info{client_info} {}
+    ClientCommand(const std::string& command_text, std::weak_ptr<ClientInfo> client_info) : _cmd{command_text}, _info{client_info} {}
 
-    std::string get_cmd() const { return cmd; }
-    std::weak_ptr<ClientInfo> get_client_info() const { return info; }
+    std::string GetCommand() const { return _cmd; }
+    std::weak_ptr<ClientInfo> get_client_info() const { return _info; }
 
 private:
-    std::string cmd;
-    std::weak_ptr<ClientInfo> info;
+    std::string _cmd;
+    std::weak_ptr<ClientInfo> _info;
 };
 
 #endif /* defined(__socketexample__ClientCommand__) */
