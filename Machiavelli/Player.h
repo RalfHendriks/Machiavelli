@@ -16,6 +16,7 @@ public:
 	const std::string GetName() const;
 	const int GetGold() const;
 	const bool IsKing() const;
+	const std::string GetLastInput() const { return _last_input; }
 
 	const std::vector<std::shared_ptr<CharacterCard>> GetCharacterCards() const;
 	const std::vector<std::shared_ptr<BuildingCard>> GetBuildingCards() const;
@@ -25,10 +26,10 @@ public:
 	void RemoveGold(const int amount);
 	void SetIsKing(const bool isKing);
 	void SendMessageToCLient(const std::string message);
-	void SetLastPLayerInput(const std::string input) { _lastInput = input; }
+	void SetLastPLayerInput(const std::string input) { _last_input = input; }
 private:
     const std::string _name;
-	std::string _lastInput;
+	std::string _last_input;
 	int _current_gold;
 	bool _is_king;
 	Socket& _socket;

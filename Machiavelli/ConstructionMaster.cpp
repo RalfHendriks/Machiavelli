@@ -9,6 +9,6 @@ ConstructionMaster::~ConstructionMaster()
 {
 }
 
-void ConstructionMaster::Execute(GameController & game_controller)
+void ConstructionMaster::Execute(std::shared_ptr<GameController> game_controller)
 {
 }

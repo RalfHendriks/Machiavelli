@@ -32,13 +32,17 @@ void GameController::ResetCards()
 void GameController::AddPlayer(std::shared_ptr<Player> player)
 {
 	_players.push_back(player);
-	std::cout << "New player connected: " << player->GetName() << "\r\n";
+	_current_player_turn = player;
+	/*std::cout << "New player connected: " << player->GetName() << "\r\n";
 	std::cout << "Current players in lobby: " << _players.size() << "\r\n";
 	if (_players.size() == 2) {
 		_players[0]->SendMessageToCLient("Player " + _players[1]->GetName() + " entered the game!\r\n");
 		_players[1]->SendMessageToCLient("Player " + _players[0]->GetName() + " entered the game!\r\n");
 		StartGame();
-	}
+	}*/
+
+	ResetCards();
+	_character_cards[0]->Execute(shared_from_this());
 }
 
 void GameController::RemovePlayer(std::shared_ptr<Player> player)
@@ -52,6 +56,8 @@ void GameController::HandlePlayerInput(std::shared_ptr<Player> player, std::stri
 	if (playerInput == "skipcharacterselect") _skip_character_select = true;
 
 	player->SetLastPLayerInput(playerInput);
+
+
 }
 
 void GameController::EndTurn()

@@ -10,6 +10,6 @@ Merchant::~Merchant()
 {
 }
 
-void Merchant::Execute(GameController & game_controller)
+void Merchant::Execute(std::shared_ptr<GameController> game_controller)
 {
 }

@@ -10,6 +10,6 @@ Thief::~Thief()
 {
 }
 
-void Thief::Execute(GameController & game_controller)
+void Thief::Execute(std::shared_ptr<GameController> game_controller)
 {
 }

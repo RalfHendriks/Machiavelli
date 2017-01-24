@@ -1,4 +1,5 @@
 #pragma once
+#include <memory>
 #include <string>
 #include "CardTypes.h"
 
@@ -16,7 +17,7 @@ public:
 	const std::string GetDescription() const;
 	const CharacterType GetType() const;
 
-	virtual void Execute(GameController & game_controller) = 0; // Make abstract class
+	virtual void Execute(std::shared_ptr<GameController> game_controller) = 0; // Make abstract class
 
 protected:
 	const int _character_id;

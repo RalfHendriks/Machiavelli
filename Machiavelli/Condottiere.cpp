@@ -9,6 +9,6 @@ Condottiere::~Condottiere()
 {
 }
 
-void Condottiere::Execute(GameController & game_controller)
+void Condottiere::Execute(std::shared_ptr<GameController> game_controller)
 {
 }

@@ -7,6 +7,6 @@ public:
 	Thief(const int id, const std::string name, const CharacterType type);
 	~Thief();
 
-	void Execute(GameController & game_controller) override;
+	void Execute(std::shared_ptr<GameController> game_controller) override;
 private:
 };

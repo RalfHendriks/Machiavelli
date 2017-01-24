@@ -9,6 +9,6 @@ Mage::~Mage()
 {
 }
 
-void Mage::Execute(GameController & game_controller)
+void Mage::Execute(std::shared_ptr<GameController> game_controller)
 {
 }

@@ -9,6 +9,6 @@ Preacher::~Preacher()
 {
 }
 
-void Preacher::Execute(GameController & game_controller)
+void Preacher::Execute(std::shared_ptr<GameController> game_controller)
 {
 }

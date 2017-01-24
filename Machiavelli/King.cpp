@@ -9,6 +9,6 @@ King::~King()
 {
 }
 
-void King::Execute(GameController & game_controller)
+void King::Execute(std::shared_ptr<GameController> game_controller)
 {
 }

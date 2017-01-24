@@ -8,7 +8,7 @@
 #include "CardFactory.h"
 #include "GameState.h"
 
-class GameController
+class GameController : std::enable_shared_from_this<GameController>
 {
 public:
 	GameController();
@@ -21,6 +21,7 @@ public:
 	void EndTurn();
 	const bool HasGameStarted() const { return _game_started; }
 	const GameState GetCurrentState() const { return _current_state; }
+	const std::shared_ptr<Player> GetCurrentPlayerTurn() const { return _current_player_turn; }
 private:
 	std::shared_ptr<Player> _current_player_turn;
 	std::vector<std::shared_ptr<Player>> _players;
