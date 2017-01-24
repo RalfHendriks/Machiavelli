@@ -119,6 +119,9 @@
     <ClInclude Include="ConstructionMaster.h">
       <Filter>Models\Cards\Characters\Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="GameState.h">
+      <Filter>Models</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Socket.cpp">

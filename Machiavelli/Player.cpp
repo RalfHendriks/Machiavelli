@@ -1,6 +1,6 @@
 #include "Player.h"
 
-Player::Player(const std::string name) : _name{name}
+Player::Player(const std::string name, Socket& socket) : _name{ name }, _socket{socket}
 {
 }
 
@@ -47,4 +47,9 @@ void Player::RemoveGold(const int amount)
 void Player::SetIsKing(const bool isKing)
 {
 	_is_king = isKing;
+}
+
+void Player::SendMessageToCLient(std::string message)
+{
+	_socket << message;
 }
