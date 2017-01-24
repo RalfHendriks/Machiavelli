@@ -27,6 +27,6 @@ void GameController::RemovePlayer(std::shared_ptr<Player> player)
 	_currentPlayers.erase(std::remove(_currentPlayers.begin(), _currentPlayers.end(), player), _currentPlayers.end());
 }
 
-void GameController::HandlePlayerInput(Player& player, std::string playerInput)
+void GameController::HandlePlayerInput(std::shared_ptr<Player> player, std::string playerInput)
 {
 }

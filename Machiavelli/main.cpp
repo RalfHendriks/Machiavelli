@@ -45,13 +45,13 @@ void consume_command() // runs in its own thread
 					game->HandlePlayerInput(player, command.GetCommand());
 				}
 				catch (const exception& ex) {
-					cerr << "*** exception in consumer thread for player " << player.GetName() << ": " << ex.what() << '\n';
+					cerr << "*** exception in consumer thread for player " << player->GetName() << ": " << ex.what() << '\n';
 					if (client.is_open()) {
 						client.write("Sorry, something went wrong during handling of your request.\r\n");
 					}
 				}
 				catch (...) {
-					cerr << "*** exception in consumer thread for player " << player.GetName() << '\n';
+					cerr << "*** exception in consumer thread for player " << player->GetName() << '\n';
 					if (client.is_open()) {
 						client.write("Sorry, something went wrong during handling of your request.\r\n");
 					}
@@ -74,7 +74,7 @@ std::shared_ptr<ClientInfo> init_client_session(Socket client) {
 			name = input;
 		});
 	}
-	return make_shared<ClientInfo>(move(client), Player{ name });
+	return make_shared<ClientInfo>(move(client), make_shared<Player>(name));
 }
 
 void handle_client(Socket client) // this function runs in a separate thread
@@ -89,15 +89,15 @@ void handle_client(Socket client) // this function runs in a separate thread
 			auto &socket = client_info->get_socket();
 			auto &player = client_info->get_player();
 
-			game->AddPlayer(std::make_shared<Player>(player));
-			socket << "Welcome, " << player.GetName() << ", have fun playing our game!\r\n" << machiavelli::prompt;
+			game->AddPlayer(player);
+			socket << "Welcome, " << player->GetName() << ", have fun playing our game!\r\n" << machiavelli::prompt;
 
 			while (running) { // game loop
 				try {
 					// read first line of request
 					std::string cmd;
 					if (socket.readline([&cmd](std::string input) { cmd = input; })) {
-						cerr << '[' << socket.get_dotted_ip() << " (" << socket.get_socket() << ") " << player.GetName() << "] " << cmd << "\r\n";
+						cerr << '[' << socket.get_dotted_ip() << " (" << socket.get_socket() << ") " << player->GetName() << "] " << cmd << "\r\n";
 
 						if (cmd == "quit") {
 							socket.write("Bye!\r\n");

@@ -42,21 +42,21 @@ std::shared_ptr<CharacterCard> CardFactory::CreateCharacter(std::string type, in
 	auto charType = _characterIdentifiers.find(type)->second;
 	switch (charType) {
 	case CharacterType::Thief:
-		return std::make_shared<Thief>(Thief(id, charType));
+		return std::make_shared<Thief>(Thief(id, CharacterTypeToString(CharacterType::Thief), charType));
 	case CharacterType::Condottiere:
-		return std::make_shared<Condottiere>(Condottiere(id, charType));
+		return std::make_shared<Condottiere>(Condottiere(id, CharacterTypeToString(CharacterType::Condottiere), charType));
 	case CharacterType::ConstructionMaster:
-		return std::make_shared<ConstructionMaster>(ConstructionMaster(id, charType));
+		return std::make_shared<ConstructionMaster>(ConstructionMaster(id, CharacterTypeToString(CharacterType::ConstructionMaster), charType));
 	case CharacterType::King:
-		return std::make_shared<King>(King(id, charType));
+		return std::make_shared<King>(King(id, CharacterTypeToString(CharacterType::King), charType));
 	case CharacterType::Mage:
-		return std::make_shared<Mage>(Mage(id, charType));
+		return std::make_shared<Mage>(Mage(id, CharacterTypeToString(CharacterType::Mage), charType));
 	case CharacterType::Merchant:
-		return std::make_shared<Merchant>(Merchant(id, charType));
+		return std::make_shared<Merchant>(Merchant(id, CharacterTypeToString(CharacterType::Merchant), charType));
 	case CharacterType::Murderer:
-		return std::make_shared<Murderer>(Murderer(id, charType));
+		return std::make_shared<Murderer>(Murderer(id, CharacterTypeToString(CharacterType::Murderer), charType));
 	case CharacterType::Preacher:
-		return std::make_shared<Preacher>(Preacher(id, charType));
+		return std::make_shared<Preacher>(Preacher(id, CharacterTypeToString(CharacterType::Preacher), charType));
 	default:
 		return nullptr;
 	}

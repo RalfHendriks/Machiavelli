@@ -4,7 +4,7 @@
 class Murderer : public CharacterCard
 {
 public:
-	Murderer(int ID, CharacterType type);
+	Murderer(const int id, const std::string name, const CharacterType type);
 	~Murderer();
 
 	void Execute() override;
