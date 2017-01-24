@@ -1,7 +1,8 @@
 #include "Player.h"
 
-Player::Player(const std::string name, Socket& socket) : _name{ name }, _socket{socket}
+Player::Player(const std::string name, Socket& socket) : _name{ name }, _socket{ socket }
 {
+	_ready = false;
 }
 
 const std::string Player::GetName() const

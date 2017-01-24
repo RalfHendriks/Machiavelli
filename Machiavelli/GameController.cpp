@@ -63,13 +63,6 @@ void GameController::RemoveCharacterCard(const int index)
 void GameController::AddPlayer(std::shared_ptr<Player> player)
 {
 	_players.push_back(player);
-	/*std::cout << "New player connected: " << player->GetName() << "\r\n";
-	std::cout << "Current players in lobby: " << _players.size() << "\r\n";
-	if (_players.size() == 2) {
-		_players[0]->SendMessageToCLient("Player " + _players[1]->GetName() + " entered the game!\r\n");
-		_players[1]->SendMessageToCLient("Player " + _players[0]->GetName() + " entered the game!\r\n");
-		StartGame();
-	}*/
 }
 
 void GameController::RemovePlayer(std::shared_ptr<Player> player)
@@ -83,10 +76,8 @@ void GameController::HandlePlayerInput(std::shared_ptr<Player> player, std::stri
 	std::cout << player->GetName() << ": " << playerInput << "\r\n";
 	if (!_game_started) {
 		if (playerInput == "join") {
-			_players[0]->SendMessageToCLient("Player: " + player->GetName() + " has joined. \r\n>");
-			player->SendMessageToCLient(">");
-
 			if (_players.size() == 2) {
+				_players[0]->SendMessageToCLient("Player: " + player->GetName() + " has joined. \r\n");
 				for (const auto &p : _players) {
 					p->SendMessageToCLient("Needed amount of players reached. Type ready to begin. \r\n> ");
 				}
@@ -98,11 +89,10 @@ void GameController::HandlePlayerInput(std::shared_ptr<Player> player, std::stri
 			player->SetReady(true);
 			std::string message = "Player: " + player->GetName() + " is ready. \r\n>";
 			_players[0] == player ? _players[1]->SendMessageToCLient(message) : _players[0]->SendMessageToCLient(message);
-			player->SendMessageToCLient(">");
 
 			if (_players.size() == 2 && CheckForAllPlayersReady()) {
 				for (const auto &p : _players) {
-					p->SendMessageToCLient("All players are ready. Let the best one win!\r\n>");
+					p->SendMessageToCLient("All players are ready. Let the best one win!\r\n");
 				}
 
 				std::thread g{ &GameController::StartGame, this };

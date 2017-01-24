@@ -30,7 +30,7 @@ namespace machiavelli {
 }
 
 static bool running = true;
-std::shared_ptr<GameController> game;
+GameController game;
 static Sync_queue<ClientCommand> queue;
 
 void consume_command() // runs in its own thread
@@ -42,7 +42,7 @@ void consume_command() // runs in its own thread
 				auto &client = clientInfo->get_socket();
 				auto &player = clientInfo->get_player();
 				try {
-					game->HandlePlayerInput(player, command.GetCommand());
+					game.HandlePlayerInput(player, command.GetCommand());
 					client.write(machiavelli::prompt);
 				}
 				catch (const exception& ex) {
@@ -82,7 +82,7 @@ void handle_client(Socket client) // this function runs in a separate thread
 {
 	try {
 		client.write("Welcome to our Machiavelli Game server!\r\n");
-		if (game->HasGameStarted()) {
+		if (game.HasGameStarted()) {
 			client.write("Game already in progress, please try again later.\r\n");
 		}
 		else {
@@ -90,9 +90,9 @@ void handle_client(Socket client) // this function runs in a separate thread
 			auto &socket = client_info->get_socket();
 			auto &player = client_info->get_player();
 
-			game->AddPlayer(player);
-			socket << "Welcome, " << player->GetName() << ", have fun playing our game!\r\n" << machiavelli::prompt;
-			game->HandlePlayerInput(player, "join");
+			game.AddPlayer(player);
+			socket << "Welcome, " << player->GetName() << ", have fun playing our game!\r\n";
+			game.HandlePlayerInput(player, "join");
 			while (running) { // game loop
 				try {
 					// read first line of request
@@ -101,8 +101,8 @@ void handle_client(Socket client) // this function runs in a separate thread
 						//cerr << '[' << socket.get_dotted_ip() << " (" << socket.get_socket() << ") " << player->GetName() << "] " << cmd << "\r\n";
 
 						if (cmd == "quit") {
-							game->RemovePlayer(player);
-							game->HandlePlayerInput(player, cmd);
+							game.RemovePlayer(player);
+							game.HandlePlayerInput(player, cmd);
 							socket.write("Bye!\r\n");
 							break; // out of game loop, will end this thread and close connection
 						}
@@ -134,6 +134,7 @@ void handle_client(Socket client) // this function runs in a separate thread
 
 void InitSocketLoop()
 {
+	game = GameController();
 	// start command consumer thread
 	vector<thread> all_threads;
 	all_threads.emplace_back(consume_command);
@@ -166,13 +167,8 @@ void InitSocketLoop()
 
 int main(int argc, const char * argv[])
 {
-
-	game = std::make_shared<GameController>(GameController());
 	InitSocketLoop();
 
-	//clear memory from gamecontroller
-
-	//_gameController.reset();
 	_cexit();
 	_CrtDumpMemoryLeaks();
 	return 0;
