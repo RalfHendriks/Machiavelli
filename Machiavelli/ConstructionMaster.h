@@ -7,6 +7,6 @@ public:
 	ConstructionMaster(const int id, const std::string name, const CharacterType type);
 	~ConstructionMaster();
 
-	void Execute() override;
+	void Execute(GameController & game_controller) override;
 private:
 };

@@ -7,6 +7,6 @@ public:
 	Merchant(const int id, const std::string name, const CharacterType type);
 	~Merchant();
 
-	void Execute() override;
+	void Execute(GameController & game_controller) override;
 private:
 };

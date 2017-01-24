@@ -7,6 +7,6 @@ public:
 	Condottiere(const int id, const std::string name, const CharacterType type);
 	~Condottiere();
 
-	void Execute() override;
+	void Execute(GameController & game_controller) override;
 private:
 };

@@ -7,6 +7,6 @@ public:
 	Mage(const int id, const std::string name, const CharacterType type);
 	~Mage();
 
-	void Execute() override;
+	void Execute(GameController & game_controller) override;
 private:
 };

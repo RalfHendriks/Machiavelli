@@ -4,12 +4,12 @@
 GameController::GameController()
 {
 	_factory = std::make_shared<CardFactory>(CardFactory());
-	_gameStarted = false;
+	_game_started = false;
 }
 
 void GameController::StartGame()
 {
-	_gameStarted;
+	_game_started;
 }
 
 void GameController::AddPlayer(std::shared_ptr<Player> player)
@@ -29,4 +29,19 @@ void GameController::RemovePlayer(std::shared_ptr<Player> player)
 
 void GameController::HandlePlayerInput(std::shared_ptr<Player> player, std::string playerInput)
 {
+}
+
+const bool GameController::HasGameStarted() const
+{
+	return _game_started;
+}
+
+const std::shared_ptr<CharacterCard> GameController::GetMurderedCharacter() const
+{
+	return _murdered_character;
+}
+
+const std::shared_ptr<CharacterCard> GameController::GetRobbedCharacter() const
+{
+	return _robbed_character;
 }
