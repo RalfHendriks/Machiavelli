@@ -8,8 +8,9 @@ GameController::GameController()
 {
 	_factory = std::make_shared<CardFactory>(CardFactory());
 	_game_started = false;
-	_skip_character_select = true;
+	_skip_character_select = false;
 	_player_builded_building_goal = false;
+	_murdered_card = CharacterType::NONE;
 	srand(time(NULL));
 }
 
@@ -61,9 +62,15 @@ void GameController::PlayGame()
 		bool validCharacter = false;
 		for (const auto &p : _players) {
 			if (p->HasCharacter(CharacterType(currentCharacter))) {
-				p->SendMessageToCLient("You've got this card! It's now your turn! \r\n>\r\n");
-				_current_player_turn = p;
-				validCharacter = true;
+				if (_murdered_card == CharacterType(currentCharacter)) {
+					p->SendMessageToCLient("You've got this card! Unfortunately this character has been murdered^^\r\n>\r\n");
+				}
+				else {
+					p->SendMessageToCLient("You've got this card! It's now your turn! \r\n>\r\n");
+					_current_player_turn = p;
+					validCharacter = true;
+				}
+
 			}
 		}
 		if (validCharacter) {
@@ -123,7 +130,7 @@ void GameController::PlayGame()
 							_current_player_turn->DisplayBuildableBuildings();
 							int input = GetPlayerChoice();
 							_current_player_turn->BuildBuildimg(input);
-							SendMessageToOpponent(_current_player_turn->GetName() + " build one building! \r\n");
+							SendMessageToOpponent(_current_player_turn->GetName() + " builded one building! \r\n");
 							if (!_player_builded_building_goal && _current_player_turn->GetPlayedBuildingCards().size() == 8)
 							{
 								_player_builded_building_goal = true;
@@ -134,6 +141,7 @@ void GameController::PlayGame()
 						}
 						else {
 							break;
+							_current_state == CharacterState::ExecuteState;
 						}
 					}
 				}
@@ -335,9 +343,10 @@ int GameController::CharacterCardSelect()
 			input = _current_player_turn->GetPlayerInput();
 			try
 			{
-				index = std::stoi(input) + 1;
+				index = std::stoi(input);
 				if (index <= _character_cards.Size())
 				{
+					index = index -1;
 					auto c = _character_cards.Get(index);
 					validInput = true;
 				}
