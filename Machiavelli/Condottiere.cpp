@@ -41,9 +41,14 @@ void Condottiere::Execute(GameController & game_controller)
 					current_player->SendMessageToCLient("You have selected a card out of range. Please select another one. \r\n");
 				}
 				else {
-					game_controller.GetBuildingCards().AddCard(opponent_player->GetBuildingCards().at(std::stoi(compare_input) - 1));
-					opponent_player->RemovePlayedBuildingCard(std::stoi(compare_input));
-					selected = true;
+
+					if (current_player->GetGold() < opponent_player->GetPlayedBuildingCards()[std::stoi(compare_input) - 1]->GetPrice() - 1) {
+						current_player->SendMessageToCLient("You have not enough gold to remove this card from your opponent. \r\n");
+					} else {
+						current_player->AddGold(-(opponent_player->GetPlayedBuildingCards()[std::stoi(compare_input) - 1]->GetPrice() - 1));
+						opponent_player->RemovePlayedBuildingCard(std::stoi(compare_input));
+						selected = true;
+					}
 				}
 			}
 		}
