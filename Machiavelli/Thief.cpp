@@ -1,9 +1,13 @@
 #include "Thief.h"
 #include "GameController.h"
 
-Thief::Thief(const int ID, const std::string name, const CharacterType type) : CharacterCard(ID, name, type)
+Thief::Thief(const int ID, const CharacterType type) : CharacterCard(ID, type)
 {
 
+}
+
+Thief::Thief()
+{
 }
 
 Thief::~Thief()

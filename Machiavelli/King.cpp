@@ -1,7 +1,10 @@
 #include "King.h"
 #include "GameController.h"
 
-King::King(const int ID, const std::string name, const CharacterType type) : CharacterCard(ID, name, type)
+King::King(const int ID, const CharacterType type) : CharacterCard(ID, type){
+}
+
+King::King()
 {
 }
 

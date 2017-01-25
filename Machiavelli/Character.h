@@ -12,8 +12,9 @@ class CharacterCard
 public:
 
 	//CharacterCard(const int id, const std::string name, const CharacterType type);
-	CharacterCard(int id,std::string name, CharacterType type);
-	CharacterCard(int id);
+	//CharacterCard(int id, std::string name, CharacterType type);
+	CharacterCard(int id, CharacterType type);
+	CharacterCard();
 	~CharacterCard();
 
 	const std::string GetName() const;
@@ -22,12 +23,12 @@ public:
 	const CharacterType GetType() const;
 	const bool IsExecuted() const;
 	void SetExecuted(const bool status);
-	virtual void Execute(GameController & game_controller) = 0; // Make abstract class
+	virtual void Execute(GameController & game_controller); // Make abstract class
 
 	friend std::ostream &operator <<(std::ostream &output, CharacterCard &card);
+	friend std::istream &operator >> (std::istream &input, CharacterCard &card);
 protected:
 	int _character_id;
-	std::string _name;
 	std::string _description;
 	CharacterType _type;
 	bool _executed;

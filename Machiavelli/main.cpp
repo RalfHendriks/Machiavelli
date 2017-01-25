@@ -30,7 +30,7 @@ namespace machiavelli {
 }
 
 static bool running = true;
-GameController game;
+static GameController game;
 static Sync_queue<ClientCommand> queue;
 
 void consume_command() // runs in its own thread

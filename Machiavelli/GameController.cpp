@@ -304,8 +304,10 @@ void GameController::HandlePlayerInput(std::shared_ptr<Player> player, std::stri
 		else if (playerInput == "quit") _players[0]->SendMessageToCLient("Player " + player->GetName() + " has quit.\r\n>");
 		else if (playerInput == "ready") {
 			player->SetReady(true);
-			std::string message = "Player: " + player->GetName() + " is ready. \r\n>";
-			_players[0] == player ? _players[1]->SendMessageToCLient(message) : _players[0]->SendMessageToCLient(message);
+			if (_players.size() > 1) {
+				std::string message = "Player: " + player->GetName() + " is ready. \r\n>";
+				_players[0] == player ? _players[1]->SendMessageToCLient(message) : _players[0]->SendMessageToCLient(message);
+			}
 
 			if (_players.size() == 2 && CheckForAllPlayersReady()) {
 				for (const auto &p : _players) {
@@ -319,6 +321,8 @@ void GameController::HandlePlayerInput(std::shared_ptr<Player> player, std::stri
 		else player->SendMessageToCLient("Unkown command please try a valid command! \r\n>");
 	}
 	else {
+		if (playerInput == "quit_server") {
+		}
 		if (player == _current_player_turn) {
 			player->SetLastPLayerInput(playerInput);
 		}

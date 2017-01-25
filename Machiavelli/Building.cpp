@@ -1,14 +1,10 @@
 #include "Building.h"
 
+BuildingCard::BuildingCard(std::string name, int cost) : _name{ name }, _cost{ cost }
+{}
+
 BuildingCard::BuildingCard(std::string name, int cost, CardColor color) : _name{ name }, _cost{ cost }, _color{color}
 {}
-
-BuildingCard::BuildingCard(std::string name, int cost, CardColor color, std::string description) : _name{ name }, _cost{ cost }, _color{ color }, _description{description}
-{}
-
-BuildingCard::BuildingCard(std::string name, int cost) : _name{ name }, _cost{ cost }, _color{CardColor::Yellow}
-{
-}
 
 BuildingCard::BuildingCard()
 {
@@ -41,7 +37,15 @@ BuildingCard::~BuildingCard()
 
 std::istream & operator >> (std::istream & input, BuildingCard & card)
 {
-	input >> card._name;
-	input >> card._cost;
+	input >> card._name >> card._cost >> card._color;
 	return input;
+}
+
+std::ostream & operator<<(std::ostream & output, BuildingCard & card)
+{
+	output << "[Name] " << card._name << "\r\n";
+	output << "[Cost] " << card._cost << "\r\n";
+	output << "[Color] " << card._color << "\r\n";
+	output << "\r\n";
+	return output;
 }

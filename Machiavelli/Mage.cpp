@@ -1,7 +1,11 @@
 #include "Mage.h"
 #include "GameController.h"
 
-Mage::Mage(const int ID, const std::string name, const CharacterType type) : CharacterCard(ID, name, type)
+Mage::Mage(const int ID, const CharacterType type) : CharacterCard(ID, type)
+{
+}
+
+Mage::Mage()
 {
 }
 
