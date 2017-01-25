@@ -8,5 +8,8 @@ public:
 	~Murderer();
 
 	void Execute(GameController & game_controller) override;
+
 private:
+	void PrintCharacterCards(GameController & game_controller) const;
+	const CharacterType GetMurderedCharacterType(GameController & game_controller, const int index);
 };
