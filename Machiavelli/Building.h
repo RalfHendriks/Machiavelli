@@ -9,19 +9,18 @@ class BuildingCard
 public:
 	BuildingCard(std::string name, int cost, CardColor color);
 	BuildingCard(std::string name, int cost, CardColor color, std::string description);
-
+	BuildingCard(std::string name, int cost, std::string color);
+	BuildingCard();
 	const std::string GetName() const;
 	const std::string GetDescription() const;
 	const int GetPrice() const;
 	const CardColor GetCardColor() const;
 
-	/*friend std::ostream &operator<<(std::ostream &output, const BuildingCard &card);
-
-	friend std::istream &operator >> (std::istream  &input, BuildingCard &card);*/
+	friend std::istream &operator >> (std::istream  &input, BuildingCard &card);
 	~BuildingCard();
 private:
-	const int _cost;
-	const std::string _name;
-	const std::string _description;
-	const CardColor _color;
+	 int _cost;
+	 std::string _name;
+	 std::string _description;
+	 CardColor _color;
 };

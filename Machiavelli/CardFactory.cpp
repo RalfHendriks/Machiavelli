@@ -88,6 +88,8 @@ void CardFactory::Init()
 				std::vector<std::string> record;
 				std::stringstream ss(s);
 				std::string selected;
+				/*BuildingCard card;
+				ss >> card;*/
 				while (std::getline(ss, selected, ';')) {
 					record.push_back(selected);
 				}
