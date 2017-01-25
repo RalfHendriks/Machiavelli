@@ -6,7 +6,7 @@ BuildingCard::BuildingCard(std::string name, int cost, CardColor color) : _name{
 BuildingCard::BuildingCard(std::string name, int cost, CardColor color, std::string description) : _name{ name }, _cost{ cost }, _color{ color }, _description{description}
 {}
 
-BuildingCard::BuildingCard(std::string name, int cost, std::string color) : _name{ name }, _cost{ cost }, _color{CardColor::Yellow}
+BuildingCard::BuildingCard(std::string name, int cost) : _name{ name }, _cost{ cost }, _color{CardColor::Yellow}
 {
 }
 
@@ -41,11 +41,7 @@ BuildingCard::~BuildingCard()
 
 std::istream & operator >> (std::istream & input, BuildingCard & card)
 {
-	std::string str;
-	while (input >> str)
-	{
-		std::string t = str;
-	}
+	input >> card._name;
+	input >> card._cost;
 	return input;
-
 }
