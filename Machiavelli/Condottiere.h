@@ -4,7 +4,7 @@
 class Condottiere : public CharacterCard
 {
 public:
-	Condottiere(int id = 0,CharacterType type = CharacterType::NONE);
+	Condottiere(int id,CharacterType type);
 	Condottiere();
 	~Condottiere();
 
