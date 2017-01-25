@@ -7,6 +7,7 @@
 #include "Player.h"
 #include "CardFactory.h"
 #include "CharacterState.h"
+#include "Deck.h"
 
 class GameController
 {
@@ -29,8 +30,8 @@ private:
 	std::vector<std::shared_ptr<Player>> _players;
 
 	std::shared_ptr<CardFactory> _factory;
-	std::vector<std::shared_ptr<BuildingCard>> _building_cards;
-	std::vector<std::shared_ptr<CharacterCard>> _character_cards;
+	Deck<std::shared_ptr<BuildingCard>> _building_cards;
+	Deck<std::shared_ptr<CharacterCard>> _character_cards;
 	CharacterType _murdered_card;
 	CharacterType _robbed_card;
 	bool _game_started;

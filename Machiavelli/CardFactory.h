@@ -17,8 +17,8 @@ class CardFactory
 public:
 	typedef std::map<CardType, std::string> Cards;
 	static Cards _mapResources;
-	std::vector<std::shared_ptr<BuildingCard>> GetBuildingCards() { return _buildingCards; }
-	std::vector<std::shared_ptr<CharacterCard>> GetCharacterCards() { return _characterCards; }
+	const std::vector<std::shared_ptr<BuildingCard>> GetBuildingCards() const { return _buildingCards; }
+	const std::vector<std::shared_ptr<CharacterCard>> GetCharacterCards() const { return _characterCards; }
 	CardFactory();
 	~CardFactory();
 private:
