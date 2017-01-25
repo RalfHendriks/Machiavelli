@@ -20,7 +20,6 @@ void GameController::StartGame()
 	ResetCards();
 	StartCharacterSelect();
 	PlayGame();
-
 }
 
 void GameController::ResetCards()
@@ -92,8 +91,9 @@ void GameController::PlayGame()
 						_current_player_turn->AddBuildingCard(_building_cards.Get(rIndex));
 						_building_cards.RemoveCard(rIndex);
 					}
+					_current_player_turn->SendMessageToCLient("\r\n");
 					_current_player_turn->DisplayBuildingCards();
-					_current_player_turn->SendMessageToCLient("Select a card that will be removed. \r\n");
+					_current_player_turn->SendMessageToCLient("Select a card that will be removed. \r\n>");
 					_current_player_turn->RemoveBuildingCard(GetPlayerChoice());
 					_current_state = CharacterState::BuildState;
 					break;
@@ -104,9 +104,11 @@ void GameController::PlayGame()
 			}
 			while (_current_state == CharacterState::BuildState)
 			{
+
 				break;
 			}
-
+			if (!_current_player_turn->GetCharacterCard(CharacterType(currentCharacter))->IsExecuted())
+				_current_player_turn->GetCharacterCard(CharacterType(currentCharacter))->Execute(*this);
 		}
 		currentCharacter++;
 	}
@@ -129,7 +131,7 @@ void GameController::GenerateOptions(int currentChar)
 	_current_player_turn->SendMessageToCLient("[2] Take two buildingcards and put one buildingcard away \r\n");
 	if (!_current_player_turn->GetCharacterCard(CharacterType(currentChar))->IsExecuted())
 	{
-		_current_player_turn->SendMessageToCLient("[3] Execute card special ability \r\n");
+		_current_player_turn->SendMessageToCLient("[3] Execute card special ability \r\n>");
 	}
 
 }
