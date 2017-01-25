@@ -50,27 +50,22 @@ void GameController::PlayGame()
 	int currentCharacter = 1;
 	while (currentCharacter < 9)
 	{
-		std::string currentKing = "";
+		std::string currentKing = GetCurrentKing();
 		for (const auto &p : _players) {
-			if (p->IsKing()) {
-				currentKing = p->GetName();
-			}
-		}
-		for (const auto &p : _players) {
-			p->SendMessageToCLient("King " + currentKing + " asks for the " + CharacterTypeToString(CharacterType(currentCharacter)) + "\r\n ");
+			p->SendMessageToCLient("King " + currentKing + " asks for the " + CharacterTypeToString(CharacterType(currentCharacter)) + "\r\n");
 		}
 
 		bool validCharacter = false;
 		for (const auto &p : _players) {
 			if (p->HasCharacter(CharacterType(currentCharacter))) {
 				if (_murdered_card == CharacterType(currentCharacter)) {
-					p->SendMessageToCLient("You've got this card! Unfortunately this character has been murdered^^\r\n>\r\n");
+					p->SendMessageToCLient("You've got this card! Unfortunately this character has been murdered^^\r\n\r\n");
 					if (CharacterType(currentCharacter) == CharacterType::King) {
 						SwitchKing();
 					}
 				}
 				else {
-					p->SendMessageToCLient("You've got this card! It's now your turn! \r\n>\r\n");
+					p->SendMessageToCLient("You've got this card! It's now your turn! \r\n\r\n");
 					_current_player_turn = p;
 					validCharacter = true;
 					if (CharacterType(currentCharacter) == CharacterType::King) {
@@ -100,7 +95,7 @@ void GameController::PlayGame()
 				case 1:
 					_current_player_turn->AddGold(2);
 					_current_player_turn->SendMessageToCLient("Two gold coins have been added! \r\n");
-					SendMessageToOpponent(_current_player_turn->GetName() + "took two gold coins \r\n");
+					SendMessageToOpponent(_current_player_turn->GetName() + " took two gold coins \r\n");
 					_current_state = CharacterState::BuildState;
 					break;
 				case 2:
@@ -185,11 +180,6 @@ void GameController::NewRound()
 	_building_cards.Shuffle();
 	_murdered_card = CharacterType::NONE;
 	_robbed_card = CharacterType::NONE;
-
-	for (const auto &p : _players) {
-		p->SendMessageToCLient("A new round has started! \r\n All characters are going back in the deck and they're getting shuffled! \r\n ");
-		p->SendMessageToCLient("It's up to you king " + king + "!\r\n ");
-	}
 }
 
 void GameController::CheckForGameWinner()
@@ -201,7 +191,7 @@ void GameController::CheckForGameWinner()
 		if (p->GetFirstToEight()) {
 			victory = true;
 			winner = p->GetName();
-			p->SendMessageToCLient("Game finished!" + winner + " played 8 or more building cards!  \r\n ");
+			p->SendMessageToCLient("Game finished!" + winner + " played 8 or more building cards!  \r\n");
 		}
 	}
 	if (victory) {
@@ -336,8 +326,24 @@ void GameController::EndTurn()
 	_current_player_turn->SendMessageToCLient("Opponents turn has ended it's your turn! \r\n");
 }
 
+std::string GameController::GetCurrentKing()
+{
+	std::string currentKing = "";
+	for (const auto &p : _players) {
+		if (p->IsKing()) {
+			currentKing = p->GetName();
+		}
+	}
+	return currentKing;
+}
+
 void GameController::StartCharacterSelect()
 {
+	for (const auto &p : _players) {
+		p->SendMessageToCLient("A new round has started! \r\nAll characters are going back in the deck and they're getting shuffled! \r\n");
+		p->SendMessageToCLient("It's up to you king " + GetCurrentKing() + "!\r\n\r\n");
+	}
+
 	if (!_skip_character_select) {
 		int r = 3;
 		while (r == 3)

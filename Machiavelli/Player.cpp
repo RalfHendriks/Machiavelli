@@ -1,4 +1,5 @@
 #include "Player.h"
+#include <map>
 
 Player::Player(const std::string name, Socket& socket) : _name{ name }, _socket{ socket }
 {
@@ -45,10 +46,17 @@ const bool Player::GetFirstToEight() const
 const int Player::GetBuildingPoints() const
 {
 	int score = 0;
+	std::map<std::string, CardColor> colors = std::map<std::string, CardColor>();
 	for (const auto &building : _played_building_cards)
 	{
 		score += building->GetPrice();
+		std::string _currentColor = ColorToString(building->GetCardColor());
+		if (colors.find(_currentColor) == colors.end()) {
+			colors.insert(std::pair<std::string, CardColor>(_currentColor,building->GetCardColor()));
+		}
 	}
+	score += colors.size() == 5 ? 3 : 0;
+	score += _first_to_eight ? (_played_building_cards.size() == 8 ? 2 : 0) : 4;
 	return score;
 }
 
