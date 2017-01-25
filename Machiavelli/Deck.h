@@ -9,7 +9,7 @@ public:
 	void AddCard(T card) { _cards.push_back(card); }
 	//void RemoveCard(const int index) { _cards.erase(std::remove(_cards.begin(), _cards.end(), _cards[index]), _cards.end()); }
 	void RemoveCard(const int index) { _cards.erase(std::remove_if(_cards.begin(), _cards.end(), [&](T card) {return card == _cards[index]; }), _cards.end()); }
-	void Shuffle() { random_shuffle(deck.begin(), deck.end()); }
+	void Shuffle() { random_shuffle(_cards.begin(), _cards.end()); }
 	void Clear() { _cards.clear(); }
 
 	T Pop() { 

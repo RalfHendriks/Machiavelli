@@ -50,6 +50,7 @@ private:
 	void PlayGame();
 	void NewRound();
 	void CheckForGameWinner();
+	void SwitchKing();
 	void SendMessageToOpponent(std::string message);
 	void GenerateOptions(int currentChar);
 	void OutRemainingCharacterCards();

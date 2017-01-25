@@ -32,3 +32,8 @@ const bool CharacterCard::IsExecuted() const
 {
 	return _executed;
 }
+
+void CharacterCard::SetExecuted(const bool status)
+{
+	_executed = status;
+}

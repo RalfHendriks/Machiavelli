@@ -16,6 +16,7 @@ public:
 	const std::string GetDescription() const;
 	const CharacterType GetType() const;
 	const bool IsExecuted() const;
+	void SetExecuted(const bool status);
 	virtual void Execute(GameController & game_controller) = 0; // Make abstract class
 protected:
 	const int _character_id;

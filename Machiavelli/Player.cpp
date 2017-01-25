@@ -22,11 +22,6 @@ const bool Player::IsKing() const
 	return _is_king;
 }
 
-const bool Player::WasKing() const
-{
-	return _was_king;
-}
-
 const std::vector<std::shared_ptr<CharacterCard>> Player::GetCharacterCards() const
 {
 	return _character_cards;
@@ -127,11 +122,6 @@ void Player::RemoveGold(const int amount)
 void Player::SetIsKing(const bool isKing)
 {
 	_is_king = isKing;
-}
-
-void Player::SetWasKing(const bool wKing)
-{
-	_was_king = wKing;
 }
 
 void Player::SetReady(const bool status)

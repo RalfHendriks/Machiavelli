@@ -17,7 +17,6 @@ public:
 	const std::string GetName() const;
 	const int GetGold() const;
 	const bool IsKing() const;
-	const bool WasKing() const;
 	const std::vector<std::shared_ptr<CharacterCard>> GetCharacterCards() const;
 	const std::vector<std::shared_ptr<BuildingCard>> GetBuildingCards() const;
 	const std::vector<std::shared_ptr<BuildingCard>> GetPlayedBuildingCards() const;
@@ -33,7 +32,6 @@ public:
 	std::shared_ptr<CharacterCard> GetCharacterCard(CharacterType type);
 	void RemoveGold(const int amount);
 	void SetIsKing(const bool isKing);
-	void SetWasKing(const bool wKing);
 	void SetReady(const bool status);
 	void SetFirstToEight() { _first_to_eight = true; }
 	void SendMessageToCLient(const std::string message);
@@ -49,7 +47,6 @@ private:
 	std::string _lastInput;
 	int _current_gold;
 	bool _is_king;
-	bool _was_king;
 	bool _ready;
 	bool _first_to_eight;
 	Socket& _socket;

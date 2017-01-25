@@ -35,6 +35,7 @@ void GameController::ResetCards()
 
 	// Add character cards to deck
 	for (const auto &card : _factory->GetCharacterCards()) {
+		card->SetExecuted(false);
 		_character_cards.AddCard(card);
 	}
 
@@ -46,8 +47,8 @@ void GameController::ResetCards()
 
 void GameController::PlayGame()
 {
-	int currentCharacter = 0;
-	while (currentCharacter < 8)
+	int currentCharacter = 1;
+	while (currentCharacter < 9)
 	{
 		std::string currentKing = "";
 		for (const auto &p : _players) {
@@ -64,11 +65,18 @@ void GameController::PlayGame()
 			if (p->HasCharacter(CharacterType(currentCharacter))) {
 				if (_murdered_card == CharacterType(currentCharacter)) {
 					p->SendMessageToCLient("You've got this card! Unfortunately this character has been murdered^^\r\n>\r\n");
+					if (CharacterType(currentCharacter) == CharacterType::King) {
+						SwitchKing();
+					}
 				}
 				else {
 					p->SendMessageToCLient("You've got this card! It's now your turn! \r\n>\r\n");
 					_current_player_turn = p;
 					validCharacter = true;
+					if (CharacterType(currentCharacter) == CharacterType::King) {
+						SwitchKing();
+						currentKing = _current_player_turn->GetName();
+					}
 				}
 
 			}
@@ -114,18 +122,19 @@ void GameController::PlayGame()
 					break;
 				}
 			}
-			while (_current_state == CharacterState::BuildState)
+			int canbuild = CharacterType(currentCharacter) == CharacterType::ConstructionMaster ? 3 : 1;
+			int build = 0;
+			while (_current_state == CharacterState::BuildState && build < canbuild)
 			{
 				if (_current_player_turn->CanBuildBuildings()){
-					int canbuild = CharacterType(currentCharacter) == CharacterType::ConstructionMaster ? 3 : 1;
-					int build = 0;
-					while (build < canbuild)
+					_current_player_turn->SendMessageToCLient("Building fase would you like to build any building?\r\n");
+					_current_player_turn->SendMessageToCLient("[1] Yes\r\n");
+					_current_player_turn->SendMessageToCLient("[2] No\r\n>");
+					int input = GetPlayerChoice();
+					switch (input)
 					{
-						_current_player_turn->SendMessageToCLient("Building fase would you like to build any building?\r\n");
-						_current_player_turn->SendMessageToCLient("[1] Yes\r\n");
-						_current_player_turn->SendMessageToCLient("[2] No\r\n>");
-						int input = GetPlayerChoice();
-						if (std::to_string(input) == "1") {
+						case 1:
+						{
 							_current_player_turn->SendMessageToCLient("Which building would you like to build?\r\n");
 							_current_player_turn->DisplayBuildableBuildings();
 							int input = GetPlayerChoice();
@@ -138,10 +147,14 @@ void GameController::PlayGame()
 								SendMessageToOpponent(_current_player_turn->GetName() + " builded eight buildings!\r\n");
 							}
 							build++;
-						}
-						else {
 							break;
+						}
+						case 2:
+						default:
+						{
 							_current_state == CharacterState::ExecuteState;
+							build = 3;
+							break;
 						}
 					}
 				}
@@ -168,23 +181,10 @@ void GameController::NewRound()
 			_current_player_turn = p;
 		}
 	}
-	if (king == "") {
-		for (const auto &p : _players) {
-			if (p->WasKing()) {
-				p->SetIsKing(true);
-				p->SetWasKing(false);
-			}
-		}
-	}
-	else {
-		for (const auto &p : _players) {
-			if (p->WasKing()) {
-				p->SetWasKing(false);
-			}
-		}
-	}
 	ResetCards();
 	_building_cards.Shuffle();
+	_murdered_card = CharacterType::NONE;
+	_robbed_card = CharacterType::NONE;
 
 	for (const auto &p : _players) {
 		p->SendMessageToCLient("A new round has started! \r\n All characters are going back in the deck and they're getting shuffled! \r\n ");
@@ -218,6 +218,13 @@ void GameController::CheckForGameWinner()
 	else {
 		NewRound();
 	}
+}
+
+void GameController::SwitchKing()
+{
+	_current_player_turn->SetIsKing(true);
+	auto oldKing = _players[0] == _current_player_turn ? _players[1] : _players[0];
+	oldKing->SetIsKing(false);
 }
 
 void GameController::SendMessageToOpponent(std::string message)
