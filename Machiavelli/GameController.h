@@ -43,6 +43,7 @@ private:
 	bool _skip_character_select;
 	bool _player_builded_building_goal;
 	CharacterState _current_state;
+	std::string GetCurrentKing();
 	void StartCharacterSelect();
 	int CharacterCardSelect();
 	int GetPlayerChoice();
