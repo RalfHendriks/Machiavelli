@@ -20,6 +20,7 @@ public:
 	void RemovePlayer(std::shared_ptr<Player> player);
 	void HandlePlayerInput(std::shared_ptr<Player> player, std::string playerInput);
 	void EndTurn();
+	void Close();
 	const bool HasGameStarted() const { return _game_started; }
 	const std::shared_ptr<Player> GetCurrentPlayerTurn() const { return _current_player_turn; }
 	const std::shared_ptr<Player> GetOpponent() const { return _current_player_turn == _players[0] ? _players[1] : _players[0]; }
@@ -32,6 +33,7 @@ public:
 
 	const std::shared_ptr<CardFactory> GetCardFactory() const { return _factory; }
 	Deck<std::shared_ptr<BuildingCard>> GetBuildingCards() const { return _building_cards; }
+	bool game_ended;
 private:
 	std::shared_ptr<Player> _current_player_turn;
 	std::vector<std::shared_ptr<Player>> _players;

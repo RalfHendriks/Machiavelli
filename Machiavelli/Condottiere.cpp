@@ -38,7 +38,7 @@ void Condottiere::Execute(GameController & game_controller)
 		std::string compare_input{ current_player->GetPlayerInput() };
 		bool selected{ false };
 
-		while (!selected) {
+		while (!selected && !game_controller.game_ended) {
 			if (current_player->GetPlayerInput() != compare_input) {
 				compare_input = current_player->GetPlayerInput();
 
