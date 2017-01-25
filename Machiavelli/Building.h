@@ -9,7 +9,7 @@ class BuildingCard
 public:
 	BuildingCard(std::string name, int cost, CardColor color);
 	BuildingCard(std::string name, int cost, CardColor color, std::string description);
-	BuildingCard(std::string name, int cost, std::string color);
+	BuildingCard(std::string name, int cost);
 	BuildingCard();
 	const std::string GetName() const;
 	const std::string GetDescription() const;
