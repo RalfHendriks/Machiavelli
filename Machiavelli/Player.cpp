@@ -158,7 +158,6 @@ void Player::DisplayBuildableBuildings()
 
 void Player::ResetForRound()
 {
-	_building_cards.clear();
 	_character_cards.clear();
 }
 
