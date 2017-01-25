@@ -15,10 +15,12 @@ public:
 	const int GetID() const;
 	const std::string GetDescription() const;
 	const CharacterType GetType() const;
+	const bool IsExecuted() const;
 	virtual void Execute(GameController & game_controller) = 0; // Make abstract class
 protected:
 	const int _character_id;
 	const std::string _name;
 	const std::string _description;
 	const CharacterType _type;
+	bool _executed;
 };
