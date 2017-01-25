@@ -24,8 +24,9 @@ public:
 	const bool GetFirstToEight() const;
 	const int GetBuildingPoints() const;
 	void AddGold(const int amount);
-	void AddCharacterCard(std::shared_ptr<CharacterCard> card);
-	void AddBuildingCard(std::shared_ptr<BuildingCard> card);
+	void AddCharacterCard(const std::shared_ptr<CharacterCard> card);
+	void AddBuildingCard(const std::shared_ptr<BuildingCard> card);
+	void SetBuildingCards(const std::vector<std::shared_ptr<BuildingCard>> building_cards) { _building_cards = building_cards; }
 	void BuildBuildimg(int index);
 	void RemoveBuildingCard(int index);
 	void DisplayBuildingCards();

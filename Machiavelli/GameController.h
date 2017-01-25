@@ -22,6 +22,7 @@ public:
 	void EndTurn();
 	const bool HasGameStarted() const { return _game_started; }
 	const std::shared_ptr<Player> GetCurrentPlayerTurn() const { return _current_player_turn; }
+	const std::shared_ptr<Player> GetOpponent() const { return _current_player_turn == _players[0] ? _players[1] : _players[0]; }
 
 	const CharacterType GetMurderedCard() const { return _murdered_card; }
 	const CharacterType GetRobbedCard() const { return _robbed_card; }
@@ -30,6 +31,7 @@ public:
 	void SetRobbedCard(CharacterType character_type) { _robbed_card = character_type; }
 
 	const std::shared_ptr<CardFactory> GetCardFactory() const { return _factory; }
+	Deck<std::shared_ptr<BuildingCard>> GetBuildingCards() const { return _building_cards; }
 private:
 	std::shared_ptr<Player> _current_player_turn;
 	std::vector<std::shared_ptr<Player>> _players;

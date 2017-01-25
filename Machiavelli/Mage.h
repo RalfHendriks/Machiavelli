@@ -9,4 +9,6 @@ public:
 
 	void Execute(GameController & game_controller) override;
 private:
+	const void PrintOptions(GameController & game_controller) const;
+	void OptionOne(GameController & game_controller);
 };
