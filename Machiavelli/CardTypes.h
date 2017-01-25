@@ -3,7 +3,7 @@
 
 enum class CardType { Building, Character };
 enum class CardColor { White, Yellow, Green, Blue, Red, Lila };
-enum class CharacterType {Murderer, Thief, Mage, King, Preacher, Merchant, ConstructionMaster, Condottiere };
+enum class CharacterType {NONE,Murderer, Thief, Mage, King, Preacher, Merchant, ConstructionMaster, Condottiere };
 
 inline const char* CharacterTypeToString(CharacterType c)
 {
@@ -17,6 +17,7 @@ inline const char* CharacterTypeToString(CharacterType c)
 	case CharacterType::Merchant:		return "Koopman";
 	case CharacterType::ConstructionMaster:	return "Bouwmeester";
 	case CharacterType::Condottiere:	return "Condottiere";
+	default: return "NONE";
 	}
 }
 

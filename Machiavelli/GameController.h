@@ -48,6 +48,7 @@ private:
 	int GetPlayerChoice();
 	void ResetCards();
 	void PlayGame();
+	void NewRound();
 	void CheckForGameWinner();
 	void SendMessageToOpponent(std::string message);
 	void GenerateOptions(int currentChar);
