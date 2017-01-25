@@ -23,6 +23,9 @@ public:
 	const bool HasGameStarted() const { return _game_started; }
 	const std::shared_ptr<Player> GetCurrentPlayerTurn() const { return _current_player_turn; }
 
+	const CharacterType GetMurderedCard() const { return _murdered_card; }
+	const CharacterType GetRobbedCard() const { return _robbed_card; }
+
 	void SetMurderedCard(CharacterType character_type) { _murdered_card = character_type; }
 	void SetRobbedCard(CharacterType character_type) { _robbed_card = character_type; }
 

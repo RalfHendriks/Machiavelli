@@ -8,5 +8,8 @@ public:
 	~Thief();
 
 	void Execute(GameController & game_controller) override;
+
 private:
+	void PrintCharacterCards(GameController & game_controller) const;
+	const CharacterType GetCharacterType(GameController & game_controller, const int index);
 };

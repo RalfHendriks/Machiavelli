@@ -11,5 +11,5 @@ public:
 
 private:
 	void PrintCharacterCards(GameController & game_controller) const;
-	const CharacterType GetMurderedCharacterType(GameController & game_controller, const int index);
+	const CharacterType GetCharacterType(GameController & game_controller, const int index);
 };

@@ -11,7 +11,7 @@ inline const char* CharacterTypeToString(CharacterType c)
 	{
 	case CharacterType::Murderer:		return "Moordenaar";
 	case CharacterType::Thief:			return "Dief";
-	case CharacterType::Mage:			return "Magiër";
+	case CharacterType::Mage:			return "Magier";
 	case CharacterType::King:			return "Koning";
 	case CharacterType::Preacher:		return "Prediker";
 	case CharacterType::Merchant:		return "Koopman";

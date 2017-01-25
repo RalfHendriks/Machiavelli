@@ -29,7 +29,7 @@ void Murderer::Execute(GameController & game_controller)
 			if (std::stoi(compare_input) <= 0 || std::stoi(compare_input) >= game_controller.GetCardFactory()->GetCharacterCards().size()) {
 				current_player->SendMessageToCLient("You have selected a card out of range. Please choose again. \r\n");
 			} else {
-				CharacterType character_type = GetMurderedCharacterType(game_controller, std::stoi(compare_input));
+				CharacterType character_type = GetCharacterType(game_controller, std::stoi(compare_input));
 				game_controller.SetMurderedCard(character_type);
 
 				selected = true;
@@ -56,7 +56,7 @@ void Murderer::PrintCharacterCards(GameController & game_controller) const
 	current_player->SendMessageToCLient(out);
 }
 
-const CharacterType Murderer::GetMurderedCharacterType(GameController & game_controller, const int index)
+const CharacterType Murderer::GetCharacterType(GameController & game_controller, const int index)
 {
 	auto factory = game_controller.GetCardFactory();
 	return factory->GetCharacterCards().at(index)->GetType();
