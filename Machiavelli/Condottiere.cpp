@@ -27,13 +27,14 @@ void Condottiere::Execute(GameController & game_controller)
 	}
 	else if (opponent_player->GetPlayedBuildingCards().size() >= 8 || opponent_player->GetPlayedBuildingCards().size() == 0) {
 		current_player->SendMessageToCLient("Your opponent has 0 OR 8 or more building cards. You can't remove a building card from him. \r\n");
-	}	else {
+	}
+	else {
 		current_player->SendMessageToCLient("Please select a building card you want to remove from your opponent: \r\n");
 
 		std::string compare_input{ current_player->GetPlayerInput() };
 		bool selected{ false };
 
-		while (!selected) {
+		while (!selected && !game_controller.game_ended) {
 			if (current_player->GetPlayerInput() != compare_input) {
 				compare_input = current_player->GetPlayerInput();
 

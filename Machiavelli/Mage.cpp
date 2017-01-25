@@ -24,7 +24,7 @@ void Mage::Execute(GameController & game_controller)
 
 	PrintOptions(game_controller);
 
-	while (!selected) {
+	while (!selected && !game_controller.game_ended) {
 		if (current_player->GetPlayerInput() != compare_input) {
 			compare_input = current_player->GetPlayerInput();
 

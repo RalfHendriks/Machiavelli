@@ -16,11 +16,12 @@ GameController::GameController()
 
 void GameController::StartGame()
 {
+	game_ended = false;
 	_game_started = true;
 	_current_player_turn = _players[0];
 	_current_player_turn->SetIsKing(true);
 	ResetCards();
-	while (!_player_builded_building_goal)
+	while (!_player_builded_building_goal && !game_ended)
 	{
 		StartCharacterSelect();
 		PlayGame();
@@ -48,7 +49,7 @@ void GameController::ResetCards()
 void GameController::PlayGame()
 {
 	int currentCharacter = 1;
-	while (currentCharacter < 9)
+	while (currentCharacter < 9 && !game_ended)
 	{
 		std::string currentKing = GetCurrentKing();
 		for (const auto &p : _players) {
@@ -87,7 +88,7 @@ void GameController::PlayGame()
 		}
 		if (validCharacter) {
 			_current_state = CharacterState::ChoiceState;
-			while (_current_state == CharacterState::ChoiceState)
+			while (_current_state == CharacterState::ChoiceState && !game_ended)
 			{
 				std::string t = CharacterTypeToString(CharacterType(currentCharacter));
 				_current_player_turn->SendMessageToCLient("You are the: " + t + "\r\n");
@@ -128,7 +129,7 @@ void GameController::PlayGame()
 			}
 			int canbuild = CharacterType(currentCharacter) == CharacterType::ConstructionMaster ? 3 : 1;
 			int build = 0;
-			while (_current_state == CharacterState::BuildState && build < canbuild)
+			while (_current_state == CharacterState::BuildState && build < canbuild && !game_ended)
 			{
 				if (_current_player_turn->CanBuildBuildings()){
 					_current_player_turn->SendMessageToCLient("Building fase would you like to build any building?\r\n");
@@ -335,6 +336,11 @@ void GameController::EndTurn()
 	_current_player_turn->SendMessageToCLient("Opponents turn has ended it's your turn! \r\n");
 }
 
+void GameController::Close()
+{
+	game_ended = true;
+}
+
 std::string GameController::GetCurrentKing()
 {
 	std::string currentKing = "";
@@ -360,7 +366,7 @@ void GameController::StartCharacterSelect()
 			r = rand() % _character_cards.Size();
 		}
 		RemoveCharacterCard(r);
-		while (_character_cards.Size() > 0)
+		while (_character_cards.Size() > 0 && !game_ended)
 		{
 			OutRemainingCharacterCards();
 			_current_player_turn->SendMessageToCLient("Select a character card!\r\n> ");
@@ -393,7 +399,7 @@ int GameController::CharacterCardSelect()
 	bool validInput = false;
 	int index = 0;
 	std::string input = _current_player_turn->GetPlayerInput();
-	while (!validInput) {
+	while (!validInput && !game_ended) {
 		if (input != _current_player_turn->GetPlayerInput())
 		{
 			input = _current_player_turn->GetPlayerInput();
@@ -404,7 +410,6 @@ int GameController::CharacterCardSelect()
 				{
 					index = index -1;
 					auto c = _character_cards.Get(index);
-					std::cout << *c;
 					validInput = true;
 				}
 				else
@@ -426,14 +431,19 @@ int GameController::GetPlayerChoice()
 	bool validInput = false;
 	int index = 0;
 	std::string input = _current_player_turn->GetPlayerInput();
-	while (!validInput) {
+	while (!validInput && !game_ended) {
 		if (input != _current_player_turn->GetPlayerInput())
 		{
 			input = _current_player_turn->GetPlayerInput();
 			try
 			{
 				index = std::stoi(input);
-				validInput = true;
+				if (index < 4) {
+					validInput = true;
+				}
+				else
+					_current_player_turn->SendMessageToCLient("Invalid selection try again!\r\n> ");
+
 			}
 			catch (const std::exception& e)
 			{

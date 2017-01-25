@@ -106,6 +106,7 @@ void handle_client(Socket client) // this function runs in a separate thread
 							break; // out of game loop, will end this thread and close connection
 						}
 						else if (cmd == "quit_server") {
+							game.Close();
 							running = false;
 						}
 
@@ -166,7 +167,12 @@ void InitSocketLoop()
 
 int main(int argc, const char * argv[])
 {
-	InitSocketLoop();
+	try {
+		InitSocketLoop();
+	}
+	catch (...) {
+		
+	}
 
 	_cexit();
 	_CrtDumpMemoryLeaks();
