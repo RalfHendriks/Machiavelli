@@ -4,6 +4,10 @@ CharacterCard::CharacterCard(const int characterID, const std::string name, cons
 {
 }
 
+CharacterCard::CharacterCard(int id) : _character_id{ id }
+{
+}
+
 CharacterCard::~CharacterCard()
 {
 }
@@ -38,14 +42,9 @@ void CharacterCard::SetExecuted(const bool status)
 	_executed = status;
 }
 
-/*std::ostream & operator<<(std::ostream & output, CharacterCard & card)
+std::ostream & operator<<(std::ostream & output, CharacterCard & card)
 {
-	output << "Id : " << card._character_id << "Name : " << card._name << " Type : " << card._type;
+	output << "Id : " << card._character_id << "\r\n";
+	output << "Name : " << card._name << "\r\'n";
 	return output;
 }
-
-std::istream & operator >> (std::istream & input, CharacterCard & card)
-{
-	input >> card._character_id >> card._name >> card._type;
-	return input;
-}*/
