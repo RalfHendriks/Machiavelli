@@ -20,8 +20,6 @@ void GameController::StartGame()
 	_current_player_turn->SetIsKing(true);
 	ResetCards();
 
-	//_character_cards[0]->Execute(*this);
-
 	StartCharacterSelect();
 	PlayGame();
 
@@ -29,8 +27,18 @@ void GameController::StartGame()
 
 void GameController::ResetCards()
 {
-	_character_cards = _factory->GetCharacterCards();
-	_building_cards = _factory->GetBuildingCards();
+	_character_cards.Clear();
+	_building_cards.Clear();
+
+	// Add character cards to deck
+	for (const auto &card : _factory->GetCharacterCards()) {
+		_character_cards.AddCard(card);
+	}
+
+	// Add building cards to deck
+	for (const auto &card : _factory->GetBuildingCards()) {
+		_building_cards.AddCard(card);
+	}
 }
 
 void GameController::PlayGame()
@@ -47,8 +55,8 @@ void GameController::OutRemainingCharacterCards()
 {
 	std::string out = "";
 	int identifier = 1;
-	for (const auto &card : _character_cards) {
-		out += "[" + std::to_string(identifier) + "] " + card->GetName() + "\r\n";
+	for(int i = 0; i < _character_cards.Size(); i++) {
+		out += "[" + std::to_string(identifier) + "] " + _character_cards.Get(i)->GetName() + "\r\n";
 		identifier++;
 	}
 	_current_player_turn->SendMessageToCLient(out);
@@ -68,7 +76,7 @@ bool GameController::CheckForAllPlayersReady()
 
 void GameController::RemoveCharacterCard(const int index)
 {
-	_character_cards.erase(std::remove(_character_cards.begin(), _character_cards.end(), _character_cards[index]), _character_cards.end());
+	_character_cards.RemoveCard(index);
 }
 
 void GameController::AddPlayer(std::shared_ptr<Player> player)
@@ -137,10 +145,10 @@ void GameController::StartCharacterSelect()
 		int r = 3;
 		while (r == 3)
 		{
-			r = rand() % _character_cards.size();
+			r = rand() % _character_cards.Size();
 		}
 		RemoveCharacterCard(r);
-		while (_character_cards.size() > 0)
+		while (_character_cards.Size() > 0)
 		{
 			OutRemainingCharacterCards();
 			_current_player_turn->SendMessageToCLient("Select a character card!\r\n> ");
@@ -148,7 +156,7 @@ void GameController::StartCharacterSelect()
 			_current_player_turn->AddCharacterCard(_character_cards[cardIndex]);
 			RemoveCharacterCard(cardIndex);
 
-			if (_character_cards.size() != 6) {
+			if (_character_cards.Size() != 6) {
 				OutRemainingCharacterCards();
 				_current_player_turn->SendMessageToCLient("Select a character card that will be removed!\r\n> ");
 				cardIndex = CharacterCardSelect();
@@ -161,7 +169,7 @@ void GameController::StartCharacterSelect()
 	{
 		for (size_t i = 0; i < 4; i++)
 		{
-			int r = rand() % _character_cards.size();
+			int r = rand() % _character_cards.Size();
 			_players[(i/2)]->AddCharacterCard(_character_cards[r]);
 			RemoveCharacterCard(r);
 		}
@@ -180,7 +188,7 @@ int GameController::CharacterCardSelect()
 			try
 			{
 				index = std::stoi(input) + 1;
-				if (index <= _character_cards.size())
+				if (index <= _character_cards.Size())
 				{
 					auto c = _character_cards[index];
 					validInput = true;

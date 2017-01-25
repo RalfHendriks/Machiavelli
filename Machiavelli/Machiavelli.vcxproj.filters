@@ -122,6 +122,9 @@
     <ClInclude Include="GameState.h">
       <Filter>Models</Filter>
     </ClInclude>
+    <ClInclude Include="Deck.h">
+      <Filter>Models\Cards</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Socket.cpp">

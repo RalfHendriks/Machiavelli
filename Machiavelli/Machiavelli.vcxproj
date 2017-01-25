@@ -151,6 +151,7 @@
     <ClInclude Include="CardFactory.h" />
     <ClInclude Include="Condottiere.h" />
     <ClInclude Include="ConstructionMaster.h" />
+    <ClInclude Include="Deck.h" />
     <ClInclude Include="GameController.h" />
     <ClInclude Include="GameState.h" />
     <ClInclude Include="King.h" />
