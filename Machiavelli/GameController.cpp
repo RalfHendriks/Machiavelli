@@ -77,6 +77,7 @@ void GameController::PlayGame()
 						p->SendMessageToCLient("You've been robbed all your gold is stolen! \r\n\r\n");
 						int gold = p->GetGold();
 						auto robber = _players[0] == p ? _players[1] : _players[0];
+						robber->SendMessageToCLient("You robbed the other player and stole " + std::to_string(gold) + " gold.");
 						robber->AddGold(gold);
 						p->RemoveGold(gold);
 					}

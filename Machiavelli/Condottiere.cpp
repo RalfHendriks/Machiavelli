@@ -25,8 +25,8 @@ void Condottiere::Execute(GameController & game_controller)
 	if (is_preacher) {
 		current_player->SendMessageToCLient("Your opponent has a Preacher character card. You can't remove a building card from him. \r\n");
 	}
-	else if (opponent_player->GetPlayedBuildingCards().size() >= 8) {
-		current_player->SendMessageToCLient("Your opponent has 8 or more building cards. You can't remove a building card from him. \r\n");
+	else if (opponent_player->GetPlayedBuildingCards().size() >= 8 || opponent_player->GetPlayedBuildingCards().size() == 0) {
+		current_player->SendMessageToCLient("Your opponent has 0 OR 8 or more building cards. You can't remove a building card from him. \r\n");
 	}	else {
 		current_player->SendMessageToCLient("Please select a building card you want to remove from your opponent: \r\n");
 

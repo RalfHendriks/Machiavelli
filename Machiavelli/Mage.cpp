@@ -12,10 +12,6 @@ Mage::~Mage()
 void Mage::Execute(GameController & game_controller)
 {
 	auto current_player = game_controller.GetCurrentPlayerTurn();
-	current_player->AddBuildingCard(game_controller.GetBuildingCards().Pop());
-	current_player->AddBuildingCard(game_controller.GetBuildingCards().Pop());
-	current_player->AddBuildingCard(game_controller.GetBuildingCards().Pop());
-	current_player->AddBuildingCard(game_controller.GetBuildingCards().Pop());
 
 	current_player->SendMessageToCLient("You have executed the Mage card. \r\n");
 	current_player->SendMessageToCLient("Please select one action of the list below: \r\n");
