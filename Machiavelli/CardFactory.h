@@ -19,6 +19,7 @@ public:
 	static Cards _mapResources;
 	const std::vector<std::shared_ptr<BuildingCard>> GetBuildingCards() const { return _buildingCards; }
 	const std::vector<std::shared_ptr<CharacterCard>> GetCharacterCards() const { return _characterCards; }
+
 	CardFactory();
 	~CardFactory();
 private:
@@ -28,8 +29,8 @@ private:
 	std::map<std::string, CharacterType> _characterIdentifiers;
 	std::map<std::string, CardColor> _colorIdentifiers;
 
-	std::shared_ptr<CharacterCard>  CreateCharacter(std::string type, int id);
-	std::shared_ptr<BuildingCard>  CreateBuilding(std::string name, int goldCost, CardColor color, std::string description);
+	std::shared_ptr<CharacterCard> CreateCharacter(std::string type, int id);
+	std::shared_ptr<BuildingCard> CreateBuilding(std::string name, int goldCost, CardColor color, std::string description);
 
 	static Cards init_resource_map() {
 		Cards resources;

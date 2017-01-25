@@ -25,6 +25,8 @@ public:
 
 	void SetMurderedCard(CharacterType character_type) { _murdered_card = character_type; }
 	void SetRobbedCard(CharacterType character_type) { _robbed_card = character_type; }
+
+	const std::shared_ptr<CardFactory> GetCardFactory() const { return _factory; }
 private:
 	std::shared_ptr<Player> _current_player_turn;
 	std::vector<std::shared_ptr<Player>> _players;
