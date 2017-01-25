@@ -36,29 +36,8 @@ CardFactory::~CardFactory()
 {
 }
 
-std::shared_ptr<CharacterCard> CardFactory::CreateCharacter(std::string type, int id)
+std::shared_ptr<CharacterCard> CardFactory::CreateCharacter(std::string type, std::stringstream s)
 {
-	/*auto charType = _characterIdentifiers.find(type)->second;
-	switch (charType) {
-	case CharacterType::Thief:
-		return std::make_shared<Thief>(Thief(id, CharacterTypeToString(CharacterType::Thief), charType));
-	case CharacterType::Condottiere:
-		return std::make_shared<Condottiere>(Condottiere(id, CharacterTypeToString(CharacterType::Condottiere), charType));
-	case CharacterType::ConstructionMaster:
-		return std::make_shared<ConstructionMaster>(ConstructionMaster(id, CharacterTypeToString(CharacterType::ConstructionMaster), charType));
-	case CharacterType::King:
-		return std::make_shared<King>(King(id, CharacterTypeToString(CharacterType::King), charType));
-	case CharacterType::Mage:
-		return std::make_shared<Mage>(Mage(id, CharacterTypeToString(CharacterType::Mage), charType));
-	case CharacterType::Merchant:
-		return std::make_shared<Merchant>(Merchant(id, CharacterTypeToString(CharacterType::Merchant), charType));
-	case CharacterType::Murderer:
-		return std::make_shared<Murderer>(Murderer(id, CharacterTypeToString(CharacterType::Murderer), charType));
-	case CharacterType::Preacher:
-		return std::make_shared<Preacher>(Preacher(id, CharacterTypeToString(CharacterType::Preacher), charType));
-	default:
-		return nullptr;
-	}*/
 	return nullptr;
 }
 
@@ -108,12 +87,70 @@ void CardFactory::Init()
 					*/
 				}
 				if (item.first == CardType::Character) {
-					CharacterCard card;
-					ss2 >> card;
 
-					_characterCards.push_back(std::make_shared<CharacterCard>(card));
+					auto charType = _characterIdentifiers.find(record[1])->second;
+					switch (charType) {
+						case CharacterType::Thief:
+						{
+							Thief thief;
+							ss2 >> thief;
+							_characterCards.push_back(std::make_shared<Thief>(thief));
+							break;
+						}
+						case CharacterType::Condottiere:
+						{
+							Condottiere condottiere;
+							ss2 >> condottiere;
+							_characterCards.push_back(std::make_shared<Condottiere>(condottiere));
+							break;
+						}
+						case CharacterType::ConstructionMaster:
+						{
+							ConstructionMaster constructionMaster;
+							ss2 >> constructionMaster;
+							_characterCards.push_back(std::make_shared<ConstructionMaster>(constructionMaster));
+							break;
+						}
+						case CharacterType::King:
+						{
+							King king;
+							ss2 >> king;
+							_characterCards.push_back(std::make_shared<King>(king));
+							break;
+						}
+						case CharacterType::Mage:
+						{
+							Mage mage;
+							ss2 >> mage;
+							_characterCards.push_back(std::make_shared<Mage>(mage));
+							break;
+						}
+						case CharacterType::Merchant:
+						{
+							Merchant merchant;
+							ss2 >> merchant;
+							_characterCards.push_back(std::make_shared<Merchant>(merchant));
+							break;
+						}
+						case CharacterType::Murderer:
+						{
+							Murderer murderer;
+							ss2 >> murderer;
+							_characterCards.push_back(std::make_shared<Murderer>(murderer));
+							break;
+						}
+						case CharacterType::Preacher:
+						{
+							Preacher preacher;
+							ss2 >> preacher;
+							_characterCards.push_back(std::make_shared<Preacher>(preacher));
+							break;
+						}
+					}
 					std::cout << *_characterCards.at(_characterCards.size() - 1);
-					//_characterCards.push_back(CreateCharacter(record[1], std::stoi(record[0])));
+					/*std::shared_ptr<CharacterCard> character = CreateCharacter(record[1], ss2);
+					_characterCards.push_back(character);
+					//_characterCards.push_back(CreateCharacter(record[1], std::stoi(record[0])));*/
 				}
 			}
 		}
