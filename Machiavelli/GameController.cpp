@@ -404,7 +404,6 @@ int GameController::CharacterCardSelect()
 				{
 					index = index -1;
 					auto c = _character_cards.Get(index);
-					std::cout << c;
 					validInput = true;
 				}
 				else
@@ -433,7 +432,7 @@ int GameController::GetPlayerChoice()
 			try
 			{
 				index = std::stoi(input);
-				if (!index > 3) {
+				if (index < 4) {
 					validInput = true;
 				}
 				else
