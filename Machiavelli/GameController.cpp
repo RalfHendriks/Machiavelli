@@ -430,8 +430,8 @@ int GameController::GetPlayerChoice()
 			input = _current_player_turn->GetPlayerInput();
 			try
 			{
+				index = std::stoi(input);
 				if (!index > 3) {
-					index = std::stoi(input);
 					validInput = true;
 				}
 				else
