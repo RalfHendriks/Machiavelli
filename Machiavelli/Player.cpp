@@ -98,6 +98,11 @@ void Player::RemoveBuildingCard(int index)
 	_building_cards.erase(std::remove(_building_cards.begin(), _building_cards.end(), _building_cards[index-1]), _building_cards.end());
 }
 
+void Player::RemovePlayedBuildingCard(int index)
+{
+	_played_building_cards.erase(std::remove(_played_building_cards.begin(), _played_building_cards.end(), _played_building_cards[index - 1]), _played_building_cards.end());
+}
+
 void Player::DisplayBuildingCards()
 {
 	int i = 1;

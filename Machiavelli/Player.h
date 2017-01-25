@@ -28,6 +28,7 @@ public:
 	void SetBuildingCards(const std::vector<std::shared_ptr<BuildingCard>> building_cards) { _building_cards = building_cards; }
 	void BuildBuildimg(int index);
 	void RemoveBuildingCard(int index);
+	void RemovePlayedBuildingCard(int index);
 	void DisplayBuildingCards();
 	void DisplayBuildedBuildings();
 	std::shared_ptr<CharacterCard> GetCharacterCard(CharacterType type);
