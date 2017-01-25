@@ -26,5 +26,5 @@ void Murderer::Execute(GameController & game_controller)
 			current_player->SendMessageToCLient("You have murdered " + compare_input);
 		}
 	}
-
+	_executed = true;
 }

@@ -6,7 +6,7 @@
 
 #include "Player.h"
 #include "CardFactory.h"
-#include "GameState.h"
+#include "CharacterState.h"
 #include "Deck.h"
 
 class GameController
@@ -21,7 +21,6 @@ public:
 	void HandlePlayerInput(std::shared_ptr<Player> player, std::string playerInput);
 	void EndTurn();
 	const bool HasGameStarted() const { return _game_started; }
-	const GameState GetCurrentState() const { return _current_state; }
 	const std::shared_ptr<Player> GetCurrentPlayerTurn() const { return _current_player_turn; }
 
 	void SetMurderedCard(CharacterType character_type) { _murdered_card = character_type; }
@@ -35,14 +34,16 @@ private:
 	Deck<std::shared_ptr<CharacterCard>> _character_cards;
 	CharacterType _murdered_card;
 	CharacterType _robbed_card;
-
 	bool _game_started;
 	bool _skip_character_select;
-	GameState _current_state;
+	CharacterState _current_state;
 	void StartCharacterSelect();
 	int CharacterCardSelect();
+	int GetPlayerChoice();
 	void ResetCards();
 	void PlayGame();
+	void SendMessageToOpponent(std::string message);
+	void GenerateOptions(int currentChar);
 	void OutRemainingCharacterCards();
 	bool CheckForAllPlayersReady();
 	void RemoveCharacterCard(const int index);

@@ -13,7 +13,6 @@ CardFactory::Cards CardFactory::_mapResources = init_resource_map();
 CardFactory::CardFactory()
 {
 	_characterIdentifiers = std::map<std::string, CharacterType>();
-	_characterIdentifiers.insert(std::make_pair(CharacterTypeToString(CharacterType::NONE), CharacterType::NONE));
 	_characterIdentifiers.insert(std::make_pair(CharacterTypeToString(CharacterType::Murderer), CharacterType::Murderer));
 	_characterIdentifiers.insert(std::make_pair(CharacterTypeToString(CharacterType::Thief), CharacterType::Thief));
 	_characterIdentifiers.insert(std::make_pair(CharacterTypeToString(CharacterType::Mage), CharacterType::Mage));

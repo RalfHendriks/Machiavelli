@@ -153,7 +153,7 @@
     <ClInclude Include="ConstructionMaster.h" />
     <ClInclude Include="Deck.h" />
     <ClInclude Include="GameController.h" />
-    <ClInclude Include="GameState.h" />
+    <ClInclude Include="CharacterState.h" />
     <ClInclude Include="King.h" />
     <ClInclude Include="Mage.h" />
     <ClInclude Include="Merchant.h" />

@@ -3,7 +3,7 @@
 Player::Player(const std::string name, Socket& socket) : _name{ name }, _socket{ socket }
 {
 	_ready = false;
-	AddGold(2);
+	_current_gold = 2;
 }
 
 const std::string Player::GetName() const
@@ -46,6 +46,40 @@ void Player::AddCharacterCard(std::shared_ptr<CharacterCard> card)
 	_character_cards.push_back(card);
 }
 
+void Player::AddBuildingCard(std::shared_ptr<BuildingCard> card)
+{
+	_building_cards.push_back(card);
+}
+
+void Player::RemoveBuildingCard(int index)
+{
+	_building_cards.erase(std::remove(_building_cards.begin(), _building_cards.end(), _building_cards[index-1]), _building_cards.end());
+}
+
+void Player::DisplayBuildingCards()
+{
+	int i = 1;
+	for (const auto &building : _building_cards)
+	{
+		SendMessageToCLient("["+std::to_string(i)+"]"+building->GetName() + " <" + ColorToString(building->GetCardColor()) + ", " + std::to_string(building->GetPrice()) + ">:\r\n");
+		i++;
+	}
+}
+
+void Player::DisplayBuildedBuildings()
+{
+}
+
+std::shared_ptr<CharacterCard> Player::GetCharacterCard(CharacterType type)
+{
+	for (const auto &character : _character_cards)
+	{
+		if (character->GetType() == type) {
+			return character;
+		}
+	}
+}
+
 void Player::RemoveGold(const int amount)
 {
 	_current_gold = _current_gold - amount;
@@ -64,4 +98,15 @@ void Player::SetReady(const bool status)
 void Player::SendMessageToCLient(std::string message)
 {
 	_socket << message;
+}
+
+bool Player::HasCharacter(CharacterType c)
+{
+	for (const auto &character : _character_cards)
+	{
+		if (character->GetType() == c) {
+			return true;
+		}
+	}
+	return false;
 }

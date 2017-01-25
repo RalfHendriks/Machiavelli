@@ -8,6 +8,7 @@
 #include "Character.h"
 #include "Building.h"
 #include <memory>
+#include <algorithm>
 
 class Player {
 public:
@@ -23,6 +24,11 @@ public:
 
 	void AddGold(const int amount);
 	void AddCharacterCard(std::shared_ptr<CharacterCard> card);
+	void AddBuildingCard(std::shared_ptr<BuildingCard> card);
+	void RemoveBuildingCard(int index);
+	void DisplayBuildingCards();
+	void DisplayBuildedBuildings();
+	std::shared_ptr<CharacterCard> GetCharacterCard(CharacterType type);
 	void RemoveGold(const int amount);
 	void SetIsKing(const bool isKing);
 	void SetReady(const bool status);
@@ -30,6 +36,7 @@ public:
 	void SetLastPLayerInput(const std::string input) { _lastInput = input; }
 	std::string GetPlayerInput() { return _lastInput; }
 	bool IsReady() { return _ready; }
+	bool HasCharacter(CharacterType c);
 private:
     const std::string _name;
 	std::string _lastInput;

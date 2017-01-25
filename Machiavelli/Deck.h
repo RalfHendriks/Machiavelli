@@ -21,8 +21,8 @@ public:
 	int Size() { return _cards.size(); }
 
 	// Operators
-	T& operator[](int index) { return Get(index); }
-	const T& operator[](int index) const { return Get(index); }
+	/*T& operator[](int index) { return Get(index); }
+	const T& operator[](int index) const { return Get(index); }*/
 
 private:
 	std::vector<T> _cards;

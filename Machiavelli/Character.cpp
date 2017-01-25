@@ -1,6 +1,6 @@
 #include "Character.h"
 
-CharacterCard::CharacterCard(const int characterID, const std::string name, const CharacterType type) : _character_id{ characterID }, _name{ name }, _type { type }
+CharacterCard::CharacterCard(const int characterID, const std::string name, const CharacterType type) : _character_id{ characterID }, _name{ name }, _type{ type }, _executed{false}
 {
 }
 
@@ -26,4 +26,9 @@ const std::string CharacterCard::GetDescription() const
 const CharacterType CharacterCard::GetType() const
 {
 	return _type;
+}
+
+const bool CharacterCard::IsExecuted() const
+{
+	return _executed;
 }
