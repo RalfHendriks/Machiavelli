@@ -1,8 +1,9 @@
 #pragma once
-#include <string>
 #include <iostream>
 #include <istream>
+#include <string>
 #include "CardTypes.h"
+using namespace std;
 
 class GameController;
 
@@ -10,7 +11,9 @@ class CharacterCard
 {
 public:
 
-	CharacterCard(const int id, const std::string name, const CharacterType type);
+	//CharacterCard(const int id, const std::string name, const CharacterType type);
+	CharacterCard(int id,std::string name, CharacterType type);
+	CharacterCard(int id);
 	~CharacterCard();
 
 	const std::string GetName() const;
@@ -21,14 +24,11 @@ public:
 	void SetExecuted(const bool status);
 	virtual void Execute(GameController & game_controller) = 0; // Make abstract class
 
-	/*friend std::ostream &operator <<(std::ostream &output, CharacterCard &card);
-
-	friend std::istream &operator >> (std::istream  &input, CharacterCard &card);*/
-
+	friend std::ostream &operator <<(std::ostream &output, CharacterCard &card);
 protected:
-	const int _character_id;
-	const std::string _name;
-	const std::string _description;
-	const CharacterType _type;
+	int _character_id;
+	std::string _name;
+	std::string _description;
+	CharacterType _type;
 	bool _executed;
 };
