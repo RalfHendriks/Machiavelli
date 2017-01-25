@@ -9,6 +9,7 @@ GameController::GameController()
 	_factory = std::make_shared<CardFactory>(CardFactory());
 	_game_started = false;
 	_skip_character_select = true;
+	_player_builded_building_goal = false;
 	srand(time(NULL));
 }
 
@@ -18,8 +19,12 @@ void GameController::StartGame()
 	_current_player_turn = _players[0];
 	_current_player_turn->SetIsKing(true);
 	ResetCards();
-	StartCharacterSelect();
-	PlayGame();
+	while (!_player_builded_building_goal)
+	{
+		StartCharacterSelect();
+		PlayGame();
+	}
+
 }
 
 void GameController::ResetCards()
@@ -104,13 +109,72 @@ void GameController::PlayGame()
 			}
 			while (_current_state == CharacterState::BuildState)
 			{
-
-				break;
+				if (_current_player_turn->CanBuildBuildings()){
+					int canbuild = CharacterType(currentCharacter) == CharacterType::ConstructionMaster ? 3 : 1;
+					int build = 0;
+					while (build < canbuild)
+					{
+						_current_player_turn->SendMessageToCLient("Building fase would you like to build any building?\r\n");
+						_current_player_turn->SendMessageToCLient("[1] Yes\r\n");
+						_current_player_turn->SendMessageToCLient("[2] No\r\n>");
+						int input = GetPlayerChoice();
+						if (std::to_string(input) == "1") {
+							_current_player_turn->SendMessageToCLient("Which building would you like to build?\r\n");
+							_current_player_turn->DisplayBuildableBuildings();
+							int input = GetPlayerChoice();
+							_current_player_turn->BuildBuildimg(input);
+							SendMessageToOpponent(_current_player_turn->GetName() + " build one building! \r\n");
+							if (!_player_builded_building_goal && _current_player_turn->GetPlayedBuildingCards().size() == 8)
+							{
+								_player_builded_building_goal = true;
+								_current_player_turn->SetFirstToEight();
+								SendMessageToOpponent(_current_player_turn->GetName() + " builded eight buildings!\r\n");
+							}
+							build++;
+						}
+						else {
+							break;
+						}
+					}
+				}
+				else {
+					_current_player_turn->SendMessageToCLient("You cant build any buildings, proceeding to next state!\r\n");
+					break;
+				}
 			}
 			if (!_current_player_turn->GetCharacterCard(CharacterType(currentCharacter))->IsExecuted())
 				_current_player_turn->GetCharacterCard(CharacterType(currentCharacter))->Execute(*this);
 		}
 		currentCharacter++;
+	}
+	CheckForGameWinner();
+}
+
+void GameController::CheckForGameWinner()
+{
+	bool victory = false;
+	std::string	winner = "";
+	int	winnerPoints = 0;
+	for (const auto &p : _players) {
+		if (p->GetFirstToEight()) {
+			victory = true;
+			winner = p->GetName();
+			p->SendMessageToCLient("Game finished!" + winner + " played 8 or more building cards!  \r\n ");
+		}
+	}
+	if (victory) {
+		for (const auto &p : _players) {
+			int points = p->GetBuildingPoints();
+			if (winnerPoints < points) {
+				winnerPoints = points;
+				winner = p->GetName();
+			}
+			p->SendMessageToCLient("You've got:" + std::to_string(points) + " points!  \r\n");
+		}
+		SendMessageToOpponent(winner + " won the game with " + std::to_string(winnerPoints) + " points!  \r\n");
+	}
+	else {
+		//NewRound();
 	}
 }
 

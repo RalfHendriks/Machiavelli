@@ -3,7 +3,8 @@
 Player::Player(const std::string name, Socket& socket) : _name{ name }, _socket{ socket }
 {
 	_ready = false;
-	_current_gold = 2;
+	_first_to_eight = false;
+	_current_gold = 10;
 }
 
 const std::string Player::GetName() const
@@ -36,6 +37,21 @@ const std::vector<std::shared_ptr<BuildingCard>> Player::GetPlayedBuildingCards(
 	return _played_building_cards;
 }
 
+const bool Player::GetFirstToEight() const
+{
+	return _first_to_eight;
+}
+
+const int Player::GetBuildingPoints() const
+{
+	int score = 0;
+	for (const auto &building : _played_building_cards)
+	{
+		score += building->GetPrice();
+	}
+	return score;
+}
+
 void Player::AddGold(const int amount)
 {
 	_current_gold = _current_gold + amount;
@@ -49,6 +65,24 @@ void Player::AddCharacterCard(std::shared_ptr<CharacterCard> card)
 void Player::AddBuildingCard(std::shared_ptr<BuildingCard> card)
 {
 	_building_cards.push_back(card);
+}
+
+void Player::BuildBuildimg(int index)
+{
+	int i = 0;
+	std::shared_ptr<BuildingCard> card = nullptr;
+	for (const auto &building : _building_cards)
+	{
+		if (i == index-1) {
+			card = building;
+			break;
+		}
+		i++;
+	}
+
+	RemoveGold(card->GetPrice());
+	_played_building_cards.push_back(card);
+	RemoveBuildingCard(index);
 }
 
 void Player::RemoveBuildingCard(int index)
@@ -100,11 +134,36 @@ void Player::SendMessageToCLient(std::string message)
 	_socket << message;
 }
 
+void Player::DisplayBuildableBuildings()
+{
+	std::string out = "";
+	int i = 1;
+	for (const auto &building : _building_cards)
+	{
+		if (_current_gold >= building->GetPrice()) {
+			out += "["+std::to_string(i)+"] " + building->GetName() + " price: "+ std::to_string(building->GetPrice()) + "\r\n";
+		}
+		i++;
+	}
+	SendMessageToCLient(out);
+}
+
 bool Player::HasCharacter(CharacterType c)
 {
 	for (const auto &character : _character_cards)
 	{
 		if (character->GetType() == c) {
+			return true;
+		}
+	}
+	return false;
+}
+
+bool Player::CanBuildBuildings()
+{
+	for (const auto &building : _building_cards)
+	{
+		if (_current_gold >= building->GetPrice()) {
 			return true;
 		}
 	}
