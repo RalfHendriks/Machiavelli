@@ -1,5 +1,7 @@
 #pragma once
-#include <string> 
+#include <string>
+#include <iostream>
+#include <istream>
 #include "CardTypes.h"
 
 class GameController;
@@ -18,6 +20,11 @@ public:
 	const bool IsExecuted() const;
 	void SetExecuted(const bool status);
 	virtual void Execute(GameController & game_controller) = 0; // Make abstract class
+
+	/*friend std::ostream &operator <<(std::ostream &output, CharacterCard &card);
+
+	friend std::istream &operator >> (std::istream  &input, CharacterCard &card);*/
+
 protected:
 	const int _character_id;
 	const std::string _name;

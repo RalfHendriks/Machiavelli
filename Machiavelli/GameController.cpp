@@ -72,6 +72,14 @@ void GameController::PlayGame()
 						SwitchKing();
 						currentKing = _current_player_turn->GetName();
 					}
+					if (CharacterType(currentCharacter) == _robbed_card)
+					{
+						p->SendMessageToCLient("You've been robbed all your gold is stolen! \r\n\r\n");
+						int gold = p->GetGold();
+						auto robber = _players[0] == p ? _players[1] : _players[0];
+						robber->AddGold(gold);
+						p->RemoveGold(gold);
+					}
 				}
 
 			}
@@ -395,6 +403,7 @@ int GameController::CharacterCardSelect()
 				{
 					index = index -1;
 					auto c = _character_cards.Get(index);
+					std::cout << c;
 					validInput = true;
 				}
 				else
@@ -423,7 +432,12 @@ int GameController::GetPlayerChoice()
 			try
 			{
 				index = std::stoi(input);
-				validInput = true;
+				if (!index > 3) {
+					validInput = true;
+				}
+				else
+					_current_player_turn->SendMessageToCLient("Invalid selection try again!\r\n> ");
+
 			}
 			catch (const std::exception& e)
 			{

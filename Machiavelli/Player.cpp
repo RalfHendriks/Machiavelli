@@ -4,6 +4,7 @@
 Player::Player(const std::string name, Socket& socket) : _name{ name }, _socket{ socket }
 {
 	_ready = false;
+	_is_king = false;
 	_first_to_eight = false;
 	_current_gold = 10;
 }
@@ -163,7 +164,6 @@ void Player::DisplayBuildableBuildings()
 
 void Player::ResetForRound()
 {
-	_building_cards.clear();
 	_character_cards.clear();
 }
 

@@ -37,3 +37,15 @@ void CharacterCard::SetExecuted(const bool status)
 {
 	_executed = status;
 }
+
+/*std::ostream & operator<<(std::ostream & output, CharacterCard & card)
+{
+	output << "Id : " << card._character_id << "Name : " << card._name << " Type : " << card._type;
+	return output;
+}
+
+std::istream & operator >> (std::istream & input, CharacterCard & card)
+{
+	input >> card._character_id >> card._name >> card._type;
+	return input;
+}*/
