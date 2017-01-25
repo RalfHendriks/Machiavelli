@@ -1,5 +1,7 @@
 #pragma once
 #include <string>
+#include <iostream>
+#include <istream>
 #include "CardTypes.h"
 
 class BuildingCard
@@ -13,6 +15,9 @@ public:
 	const int GetPrice() const;
 	const CardColor GetCardColor() const;
 
+	/*friend std::ostream &operator<<(std::ostream &output, const BuildingCard &card);
+
+	friend std::istream &operator >> (std::istream  &input, BuildingCard &card);*/
 	~BuildingCard();
 private:
 	const int _cost;
