@@ -158,6 +158,40 @@ void GameController::PlayGame()
 	CheckForGameWinner();
 }
 
+void GameController::NewRound()
+{
+	std::string king = "";
+	for (const auto &p : _players) {
+		p->ResetForRound();
+		if (p->IsKing()) {
+			king = p->GetName();
+			_current_player_turn = p;
+		}
+	}
+	if (king == "") {
+		for (const auto &p : _players) {
+			if (p->WasKing()) {
+				p->SetIsKing(true);
+				p->SetWasKing(false);
+			}
+		}
+	}
+	else {
+		for (const auto &p : _players) {
+			if (p->WasKing()) {
+				p->SetWasKing(false);
+			}
+		}
+	}
+	ResetCards();
+	_building_cards.Shuffle();
+
+	for (const auto &p : _players) {
+		p->SendMessageToCLient("A new round has started! \r\n All characters are going back in the deck and they're getting shuffled! \r\n ");
+		p->SendMessageToCLient("It's up to you king " + king + "!\r\n ");
+	}
+}
+
 void GameController::CheckForGameWinner()
 {
 	bool victory = false;
@@ -182,7 +216,7 @@ void GameController::CheckForGameWinner()
 		SendMessageToOpponent(winner + " won the game with " + std::to_string(winnerPoints) + " points!  \r\n");
 	}
 	else {
-		//NewRound();
+		NewRound();
 	}
 }
 
