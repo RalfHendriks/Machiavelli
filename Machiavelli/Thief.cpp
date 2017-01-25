@@ -12,4 +12,9 @@ Thief::~Thief()
 
 void Thief::Execute(GameController & game_controller)
 {
+	auto current_player = game_controller.GetCurrentPlayerTurn();
+
+	current_player->SendMessageToCLient("You have executed the Thief card. \r\n");
+
+	_executed = true;
 }

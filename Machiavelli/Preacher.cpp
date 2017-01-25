@@ -11,4 +11,9 @@ Preacher::~Preacher()
 
 void Preacher::Execute(GameController & game_controller)
 {
+	auto current_player = game_controller.GetCurrentPlayerTurn();
+
+	current_player->SendMessageToCLient("You have executed the Preacher card. \r\n");
+
+	_executed = true;
 }
