@@ -1,7 +1,11 @@
 #include "Condottiere.h"
 #include "GameController.h"
 
-Condottiere::Condottiere(const int ID, const std::string name, const CharacterType type) : CharacterCard(ID, name, type)
+Condottiere::Condottiere(const int ID, const CharacterType type) : CharacterCard(ID, type)
+{
+}
+
+Condottiere::Condottiere()
 {
 }
 
@@ -27,7 +31,8 @@ void Condottiere::Execute(GameController & game_controller)
 	}
 	else if (opponent_player->GetPlayedBuildingCards().size() >= 8 || opponent_player->GetPlayedBuildingCards().size() == 0) {
 		current_player->SendMessageToCLient("Your opponent has 0 OR 8 or more building cards. You can't remove a building card from him. \r\n");
-	}	else {
+	}
+	else {
 		current_player->SendMessageToCLient("Please select a building card you want to remove from your opponent: \r\n");
 
 		std::string compare_input{ current_player->GetPlayerInput() };

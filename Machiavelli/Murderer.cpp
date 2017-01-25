@@ -2,7 +2,11 @@
 #include "GameController.h"
 #include "CardFactory.h"
 
-Murderer::Murderer(const int ID, const std::string name, const CharacterType type) : CharacterCard(ID, name, type)
+Murderer::Murderer(const int ID, const CharacterType type) : CharacterCard(ID, type)
+{
+}
+
+Murderer::Murderer()
 {
 }
 

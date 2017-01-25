@@ -38,7 +38,7 @@ CardFactory::~CardFactory()
 
 std::shared_ptr<CharacterCard> CardFactory::CreateCharacter(std::string type, int id)
 {
-	auto charType = _characterIdentifiers.find(type)->second;
+	/*auto charType = _characterIdentifiers.find(type)->second;
 	switch (charType) {
 	case CharacterType::Thief:
 		return std::make_shared<Thief>(Thief(id, CharacterTypeToString(CharacterType::Thief), charType));
@@ -58,12 +58,13 @@ std::shared_ptr<CharacterCard> CardFactory::CreateCharacter(std::string type, in
 		return std::make_shared<Preacher>(Preacher(id, CharacterTypeToString(CharacterType::Preacher), charType));
 	default:
 		return nullptr;
-	}
+	}*/
+	return nullptr;
 }
 
 std::shared_ptr<BuildingCard> CardFactory::CreateBuilding(std::string name, int goldCost, CardColor color, std::string description)
 {
-	return std::make_shared<BuildingCard>(BuildingCard(name,goldCost,color,description));
+	return std::make_shared<BuildingCard>(BuildingCard(name,goldCost,color));
 }
 
 void CardFactory::Init()
@@ -84,23 +85,35 @@ void CardFactory::Init()
 				std::string s;
 				if (!std::getline(ss, s)) break;
 
-
 				std::vector<std::string> record;
 				std::stringstream ss(s);
+				std::stringstream ss2;
 				std::string selected;
-				/*BuildingCard card;
-				ss >> card;*/
+
 				while (std::getline(ss, selected, ';')) {
+					ss2 << selected << ' ';
 					record.push_back(selected);
 				}
 
+
 				if (item.first == CardType::Building) {
-					std::string color = record[2];
+					BuildingCard card;
+					ss2 >> card;
+					_buildingCards.push_back(std::make_shared<BuildingCard>(card));
+					std::cout << *_buildingCards.at(_buildingCards.size() - 1);
+
+					/*std::string color = record[2];
 					std::transform(color.begin(), color.end(), color.begin(), ::tolower);
 					record.size() == 3 ? _buildingCards.push_back(CreateBuilding(record[0], std::stoi(record[1]), _colorIdentifiers.find(color)->second, "")) : CreateBuilding(record[0], std::stoi(record[1]), _colorIdentifiers.find(color)->second, record[3]);
+					*/
 				}
 				if (item.first == CardType::Character) {
-					_characterCards.push_back(CreateCharacter(record[1], std::stoi(record[0])));
+					CharacterCard card;
+					ss2 >> card;
+
+					_characterCards.push_back(std::make_shared<CharacterCard>(card));
+					std::cout << *_characterCards.at(_characterCards.size() - 1);
+					//_characterCards.push_back(CreateCharacter(record[1], std::stoi(record[0])));
 				}
 			}
 		}

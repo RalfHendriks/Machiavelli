@@ -4,7 +4,8 @@
 class King : public CharacterCard
 {
 public:
-	King(const int id, const std::string name, const CharacterType type);
+	King(const int id, const CharacterType type);
+	King();
 	~King();
 
 	void Execute(GameController & game_controller) override;
